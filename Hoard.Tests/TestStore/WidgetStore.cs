@@ -56,6 +56,11 @@ namespace Hoard.Tests.TestStore
             }
         }
 
+        public IEnumerable<Event> Handle(Commands.RemoveProduct command)
+        {
+            return new[] { new Events.ProductRemoved(command.Id) };
+        }
+
         public void On(Events.ItemCheckedOut ev)
         {
             var lookup = CurrentState.FirstOrDefault(widget => widget.Id == ev.Id);
@@ -77,5 +82,15 @@ namespace Hoard.Tests.TestStore
         }
 
         public void On(Events.InvalidProductIdEncoutered ev) { }
+
+        public void On(Events.ProductRemoved ev)
+        {
+            var lookup = CurrentState.FirstOrDefault(widget => widget.Id == ev.Id);
+
+            if (lookup != null)
+            {
+                RemoveItem(lookup);
+            }
+        }
     }
 }

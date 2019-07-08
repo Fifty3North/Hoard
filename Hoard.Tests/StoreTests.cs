@@ -259,5 +259,36 @@ namespace Hoard.Tests
         }
 
         // ensure item can be deleted
+        [Fact]
+        public async Task EnsureItemCanBeDeleted()
+        {
+            var widgetStore = await WidgetStore.Instance;
+            await widgetStore.Reset();
+
+            var widgetState = await WidgetStore.State;
+
+            Assert.Empty(widgetState);
+
+            var product1Command = new TestStore.Commands.RegisterProduct(Guid.NewGuid(), "Widget 1", 15);
+            var product2Command = new TestStore.Commands.RegisterProduct(Guid.NewGuid(), "Widget 2", 16);
+            var product3Command = new TestStore.Commands.RegisterProduct(Guid.NewGuid(), "Widget 3", 17);
+
+            await widgetStore.Dispatch(product1Command);
+            await widgetStore.Dispatch(product2Command);
+            await widgetStore.Dispatch(product3Command);
+
+            widgetState = await WidgetStore.State;
+            Assert.Equal(3, widgetState.Count);
+            Assert.Equal(15, widgetState.First(w => w.Id == product1Command.Id).StockQuantity);
+            Assert.Equal(16, widgetState.First(w => w.Id == product2Command.Id).StockQuantity);
+            Assert.Equal(17, widgetState.First(w => w.Id == product3Command.Id).StockQuantity);
+
+            var deleteCommand = new TestStore.Commands.RemoveProduct(product3Command.Id);
+            await widgetStore.Dispatch(deleteCommand);
+
+            widgetState = await WidgetStore.State;
+            Assert.Equal(2, widgetState.Count);
+            Assert.True(widgetState.All(w => w.Id != product3Command.Id));
+        }
     }
 }
