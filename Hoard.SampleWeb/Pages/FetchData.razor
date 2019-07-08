@@ -4,6 +4,8 @@
 @using F3N.Hoard.Extensions
 @using F3N.Hoard.State
 
+@implements IDisposable
+
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
@@ -14,7 +16,7 @@
 }
 else
 {
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -34,21 +36,22 @@ else
                     <td>@forecast.Summary</td>
                 </tr>
             }
-        <tr>
-            <td><input type="date" @bind="recordedDate" /></td>
-            <td><input type="number" min="-20" max="55" @bind="tempuratureRecorded" /></td>
-            <td><input type="button" value="Submit Reading" onclick=@SubmitNewReading /></td>
-            <td>&nbsp;</td>
-        </tr>
+            <tr>
+                <td><input type="date" @bind="recordedDate" /></td>
+                <td><input type="number" min="-20" max="55" @bind="tempuratureRecorded" /></td>
+                <td><input type="button" value="Submit Reading" onclick=@SubmitNewReading /></td>
+                <td>&nbsp;</td>
+            </tr>
         </tbody>
     </table>
-        <p>Submitting reading <em>@tempuratureRecorded</em> on the <em>@recordedDate</em></p>
+    <p>Submitting reading <em>@tempuratureRecorded</em> on the <em>@recordedDate</em></p>
 }
 
 @functions {
     List<WeatherForecast> forecasts;
     ForecastStore forecastStore;
     IReadOnlyCollection<ForecastState> state;
+    IDisposable subscription;
 
     DateTime recordedDate { get; set; } = DateTime.Now;
 
@@ -58,7 +61,8 @@ else
 
     protected WeatherForecast ToViewModel(ForecastState forecast)
     {
-        return new WeatherForecast {
+        return new WeatherForecast
+        {
             Date = forecast.DateRecorded,
             Id = forecast.Id,
             Summary = ToSummary(forecast.Temperature),
@@ -76,9 +80,9 @@ else
     protected override async Task OnInitAsync()
     {
         forecastStore = await ForecastStore.Instance;
-        state = await ForecastStore.State;
 
-        forecastStore.Observe().Subscribe(state => {
+        subscription = forecastStore.Observe().Subscribe(state =>
+        {
             int lookupIndex = forecasts.FirstIndexOf(s => s?.Id == state.Id);
 
             WeatherForecast preparedViewModel = ToViewModel(state);
@@ -93,11 +97,17 @@ else
             }
         });
 
+        state = await ForecastStore.State;
         forecasts = state.OrderByDescending(d => d.DateRecorded).Select(f => ToViewModel(f)).ToList();
     }
 
     protected async Task SubmitNewReading()
     {
         await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, tempuratureRecorded));
+    }
+
+    public void Dispose()
+    {
+        subscription.Dispose();
     }
 }

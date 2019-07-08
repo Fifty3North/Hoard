@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleLogic", "Hoard.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWeb", "Hoard.SampleWeb\Hoard.SampleWeb.csproj", "{8568F9A3-300E-429C-B606-690F490FDBF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.Tests", "Hoard.Tests\Hoard.Tests.csproj", "{40D4E7D8-9302-4F15-BAB1-1089312624C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8568F9A3-300E-429C-B606-690F490FDBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8568F9A3-300E-429C-B606-690F490FDBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8568F9A3-300E-429C-B606-690F490FDBF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40D4E7D8-9302-4F15-BAB1-1089312624C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40D4E7D8-9302-4F15-BAB1-1089312624C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40D4E7D8-9302-4F15-BAB1-1089312624C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40D4E7D8-9302-4F15-BAB1-1089312624C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

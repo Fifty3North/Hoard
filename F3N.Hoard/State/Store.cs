@@ -188,14 +188,6 @@ namespace F3N.Hoard.State
             _instance = new TStore();
         }
 
-        private async Task UserChangedHandler(object sender, string userId)
-        {
-            if (!_isSharedStorage)
-            {
-                await UnloadAndSetInitialState();
-            }
-        }
-
         protected static async Task<IReadOnlyCollection<TState>> GetStaticState()
         {
             var instance = await GetInitialisedInstance();
@@ -262,7 +254,11 @@ namespace F3N.Hoard.State
             _state = resumedState ?? new List<TState>();
         }
 
-        private async Task UnloadAndSetInitialState()
+        /// <summary>
+        /// This will delete all items in state
+        /// </summary>
+        /// <returns></returns>
+        public async Task Reset()
         {
             // Clear from storage
             await Storage.DeleteAll<TState>();

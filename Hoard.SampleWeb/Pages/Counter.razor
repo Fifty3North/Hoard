@@ -2,23 +2,29 @@
 @using F3N.Hoard.Extensions
 @using F3N.Hoard.State
 
+@implements IDisposable
+
 @page "/counter"
 
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="@IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="@IncrementCount">Up</button>
+
+<button class="btn btn-primary" @onclick="@DecrementCount">Down</button>
 
 @functions {
     CounterStore counterStore;
     CounterState state;
+    IDisposable subscription;
 
     protected override async Task OnInitAsync()
     {
         counterStore = await CounterStore.Instance;
 
-        counterStore.Observe().Subscribe((s) => {
+        subscription = counterStore.Observe().Subscribe((s) =>
+        {
             currentCount = s.Count;
         });
 
@@ -37,5 +43,10 @@
     async Task DecrementCount()
     {
         await counterStore.Dispatch(new Hoard.SampleLogic.Counter.Commands.DecrementCounter());
+    }
+
+    public void Dispose()
+    {
+        subscription?.Dispose();
     }
 }
