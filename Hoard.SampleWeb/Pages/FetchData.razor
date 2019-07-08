@@ -1,0 +1,103 @@
+@page "/fetchdata"
+@using Hoard.SampleWeb.Data
+@using Hoard.SampleLogic.Forecast
+@using F3N.Hoard.Extensions
+@using F3N.Hoard.State
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        <tr>
+            <td><input type="date" @bind="recordedDate" /></td>
+            <td><input type="number" min="-20" max="55" @bind="tempuratureRecorded" /></td>
+            <td><input type="button" value="Submit Reading" onclick=@SubmitNewReading /></td>
+            <td>&nbsp;</td>
+        </tr>
+        </tbody>
+    </table>
+        <p>Submitting reading <em>@tempuratureRecorded</em> on the <em>@recordedDate</em></p>
+}
+
+@functions {
+    List<WeatherForecast> forecasts;
+    ForecastStore forecastStore;
+    IReadOnlyCollection<ForecastState> state;
+
+    DateTime recordedDate { get; set; } = DateTime.Now;
+
+    int tempuratureRecorded { get; set; } = 10;
+
+    string myText { get; set; }
+
+    protected WeatherForecast ToViewModel(ForecastState forecast)
+    {
+        return new WeatherForecast {
+            Date = forecast.DateRecorded,
+            Id = forecast.Id,
+            Summary = ToSummary(forecast.Temperature),
+            TemperatureC = forecast.Temperature
+        };
+
+        string ToSummary(int temp)
+        {
+            // range is 75 degrees (-20 to 55) in initial example
+            int index = (int)Math.Round(((double)temp + 20d) / 75d * ((double)WeatherForecastService.Summaries.Length - 1d));
+            return WeatherForecastService.Summaries[index];
+        }
+    }
+
+    protected override async Task OnInitAsync()
+    {
+        forecastStore = await ForecastStore.Instance;
+        state = await ForecastStore.State;
+
+        forecastStore.Observe().Subscribe(state => {
+            int lookupIndex = forecasts.FirstIndexOf(s => s?.Id == state.Id);
+
+            WeatherForecast preparedViewModel = ToViewModel(state);
+
+            if (lookupIndex == -1)
+            {
+                forecasts.Insert(preparedViewModel, (a, b) => a.Date > b.Date);
+            }
+            else
+            {
+                forecasts[lookupIndex] = preparedViewModel;
+            }
+        });
+
+        forecasts = state.OrderByDescending(d => d.DateRecorded).Select(f => ToViewModel(f)).ToList();
+    }
+
+    protected async Task SubmitNewReading()
+    {
+        await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, tempuratureRecorded));
+    }
+}
