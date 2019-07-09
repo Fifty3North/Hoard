@@ -20,8 +20,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItem()
         {
-            await LocalStorage.FlushAll();
-
             var widgetStore = await WidgetStore.Instance;
             WidgetState updatedItem = null;
 
