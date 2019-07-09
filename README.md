@@ -5,7 +5,7 @@ Based loosely on Redux and generic dispatcher used in Orleankka, views can subsc
 
 Works anywhere but tested in Blazor and Xamarin.
 
-Uses SQLLite and Akavache API to provide persistence
+Uses SQLite and Akavache API to provide persistence
 
 ## TODOs
 
@@ -15,6 +15,10 @@ Uses SQLLite and Akavache API to provide persistence
 4. Provide Xamarin example
 5. ~~Documentation~~
 6. Publish NuGet package
+
+## Pre-requisites
+
+Visual Studio 2019 and .Net Core Preview 6 (for Blazor samples)
 
 ## How to use
 
@@ -52,7 +56,7 @@ public class RegisterProduct : DomainCommand<WidgetStore>
 
 ### Event
 
-An event is a fact that has happened within your system. It contains all the information required to chang state in your store.
+An event is a fact that has happened within your system. It contains all the information required to change state in your store.
 
 Events always have an Id of type Guid.
 
@@ -75,11 +79,11 @@ public class ProductRegistered : Event
 
 There are two types of **store**: one for storing a single object, and one for storing a collection of objects.
 
-Single object
+**Single object**
 
 `public class CounterStore : Store<CounterStore, CounterState> { ... }`
 
-Collection
+**Collection**
 
 `public class WidgetStore : StoreCollection<WidgetStore,WidgetState> { ... }`
 
@@ -105,9 +109,9 @@ public IEnumerable<Event> Handle(Commands.RegisterProduct command)
 
 Event handlers take the event and mutate state. 
 
-State can be modified in a single object store by accessing the `_state` object.
+State can be modified in a single object store by accessing the `_state` object to update properties or can use `SetState` to replace the entire state.
 
-In a store collection, state is modified using: `AddOrReplaceItem(product);` and `RemoveItem(product);`
+In a store collection, state is modified using: `AddOrReplaceItem(product);` and `RemoveItem(product);` or to replace the whole collection either `SetState` or `Reset` to clear state.
 
 ```
 public void On(Events.ProductRegistered ev)
@@ -115,6 +119,30 @@ public void On(Events.ProductRegistered ev)
     var product = new WidgetState(ev.Id, ev.Title, ev.InitialQuantity);
 
     AddOrReplaceItem(product);
+}
+```
+
+### State
+
+Your state needs to be serializable to store it in Akavache. If you have a constructor you need to make sure the parameters are named the same as the public properties or fields.
+
+Single object state items implement `IStatefulItem` and store collection state items implement `IStatefulCollectionItem`
+
+```
+public class WidgetState : IStatefulCollectionItem
+{
+    public Guid Id { get; }
+
+    public string Title { get; }
+
+    public int StockQuantity { get; set; }
+
+    public WidgetState(Guid id, string title, int stockQuantity = 0)
+    {
+        Id = id;
+        Title = title;
+        StockQuantity = stockQuantity;
+    }
 }
 ```
 
@@ -148,6 +176,39 @@ IDisposable subscription = forecastStore.Observe().Subscribe(state =>
 
 Or both: load initial state from Store and then keep up to date by subscribing.
 
+There are multiple Observe methods that will deliver events also and can filter based on specific event Ids:
+
+#### ObserveWithEvents
+```
+var subscription = widgetStore.ObserveWithEvents().Subscribe((payload) =>
+{
+    updatedItem = payload.State;
+    if (payload.@event is TestStore.Events.ProductRegistered registeredEvent)
+    {
+        ev = registeredEvent;
+    }
+});
+```
+
+#### ObserveWhere
+
+```
+var subscription = widgetStore.ObserveWhere(ev => ev.Id == product1Command.Id).Subscribe(state =>
+{
+    products.Add(state);
+});
+```
+
+#### ObserveWhereWithEvents
+
+```
+var subscription = widgetStore.ObserveWhereWithEvents(ev => ev.Id == product1Command.Id).Subscribe((payload) =>
+{
+    products.Add(payload.State);
+    events.Add(payload.@event);
+});
+```
+
 #### Issuing commands from the UI
 
 Take user input and dispatch to the store
@@ -157,3 +218,8 @@ ForecastStore forecastStore = await ForecastStore.Instance;
 
 await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
 ```
+
+
+### SQLite
+
+The data is stored in `%LocalAppData%\Hoard.SampleWeb\BlobCache` (`c:\users\<username>\Appdata\Local\Hoard.SampleWeb\BlobCache`)
