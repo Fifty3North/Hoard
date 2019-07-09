@@ -38,7 +38,7 @@ Commands belong to a store and are typed as such using inheritance from base Dom
 
 They should be immutable by design but this is not enforced by Hoard.
 
-```
+```csharp
 public class RegisterProduct : DomainCommand<WidgetStore>
 {
     public readonly Guid Id;
@@ -60,7 +60,7 @@ An event is a fact that has happened within your system. It contains all the inf
 
 Events always have an Id of type Guid.
 
-```
+```csharp
 public class ProductRegistered : Event
 {
     public readonly string Title;
@@ -91,7 +91,7 @@ There are two types of **store**: one for storing a single object, and one for s
 
 Command handlers examine command and determine which events to raise. This is also where any communication with any external APIs occurs. Based on the result from the API different events can be raised.
 
-```
+```csharp
 public IEnumerable<Event> Handle(Commands.RegisterProduct command)
 {
 	if (CurrentState.Any(widget => widget.Id == command.Id))
@@ -113,7 +113,7 @@ State can be modified in a single object store by accessing the `_state` object 
 
 In a store collection, state is modified using: `AddOrReplaceItem(product);` and `RemoveItem(product);` or to replace the whole collection either `SetState` or `Reset` to clear state.
 
-```
+```csharp
 public void On(Events.ProductRegistered ev)
 {
     var product = new WidgetState(ev.Id, ev.Title, ev.InitialQuantity);
@@ -128,7 +128,7 @@ Your state needs to be serializable to store it in Akavache. If you have a const
 
 Single object state items implement `IStatefulItem` and store collection state items implement `IStatefulCollectionItem`
 
-```
+```csharp
 public class WidgetState : IStatefulCollectionItem
 {
     public Guid Id { get; }
@@ -154,7 +154,7 @@ The UI can either query state directly:
 
 Or subsribe to the store to receive updates:
 
-```
+```csharp
 ForecastStore forecastStore = await ForecastStore.Instance;
 
 IDisposable subscription = forecastStore.Observe().Subscribe(state =>
@@ -179,7 +179,7 @@ Or both: load initial state from Store and then keep up to date by subscribing.
 There are multiple Observe methods that will deliver events also and can filter based on specific event Ids:
 
 #### ObserveWithEvents
-```
+```csharp
 var subscription = widgetStore.ObserveWithEvents().Subscribe((payload) =>
 {
     updatedItem = payload.State;
@@ -192,7 +192,7 @@ var subscription = widgetStore.ObserveWithEvents().Subscribe((payload) =>
 
 #### ObserveWhere
 
-```
+```csharp
 var subscription = widgetStore.ObserveWhere(ev => ev.Id == product1Command.Id).Subscribe(state =>
 {
     products.Add(state);
@@ -201,7 +201,7 @@ var subscription = widgetStore.ObserveWhere(ev => ev.Id == product1Command.Id).S
 
 #### ObserveWhereWithEvents
 
-```
+```csharp
 var subscription = widgetStore.ObserveWhereWithEvents(ev => ev.Id == product1Command.Id).Subscribe((payload) =>
 {
     products.Add(payload.State);
@@ -213,7 +213,7 @@ var subscription = widgetStore.ObserveWhereWithEvents(ev => ev.Id == product1Com
 
 Take user input and dispatch to the store
 
-```
+```csharp
 ForecastStore forecastStore = await ForecastStore.Instance;
 
 await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
