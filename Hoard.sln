@@ -9,10 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleLogic", "Hoard.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWeb", "Hoard.SampleWeb\Hoard.SampleWeb.csproj", "{8568F9A3-300E-429C-B606-690F490FDBF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.Tests", "Hoard.Tests\Hoard.Tests.csproj", "{40D4E7D8-9302-4F15-BAB1-1089312624C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Tests", "Hoard.Tests\Hoard.Tests.csproj", "{40D4E7D8-9302-4F15-BAB1-1089312624C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77A5E88A-75C7-4041-A962-98CE81367E98}"
 	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
