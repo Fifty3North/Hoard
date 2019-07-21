@@ -1,6 +1,5 @@
 ﻿using F3N.Hoard.Storage;
 using F3N.Hoard.Extensions;
-using F3N.Hoard.Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,10 +24,8 @@ namespace F3N.Hoard.State
         private static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
 
-        private readonly bool _isSharedStorage;
-        private readonly bool _isSecureStorage;
-
-        private IStorage Storage { get { return (_isSecureStorage) ? LocalStorage.SecureStorage : LocalStorage.LocalMachineStorage; } }
+       
+        private IStorage Storage { get { return LocalStorage.LocalMachineStorage; } }
 
         static Store()
         {
@@ -175,13 +172,9 @@ namespace F3N.Hoard.State
 
         private bool _isIntialised = false;
         private static TStore _instance;
-        private static string _storeKeyName;
         private static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
-        private readonly bool _isSharedStorage;
-        private readonly bool _isSecureStorage;
-
-        private IStorage Storage { get { return (_isSecureStorage) ? LocalStorage.SecureStorage : LocalStorage.LocalMachineStorage; } }
+        private IStorage Storage { get { return LocalStorage.LocalMachineStorage; } }
 
         static StoreCollection()
         {

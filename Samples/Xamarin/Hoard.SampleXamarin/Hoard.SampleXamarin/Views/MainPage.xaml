@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:yamvvm="clr-namespace:F3N.YaMVVM.Views;assembly=F3N.YaMVVM"
+             xmlns:viewmodels="clr-namespace:Hoard.SampleXamarin.ViewModels"
+            mc:Ignorable="d"
+            xmlns:views="clr-namespace:Hoard.SampleXamarin.Views"
+            x:Class="Hoard.SampleXamarin.Views.MainPage">
+
+    <TabbedPage.BindingContext>
+        <viewmodels:MainPageViewModel />
+    </TabbedPage.BindingContext>
+    <TabbedPage.Children>
+        <yamvvm:YamvvmNavigationPage Title="Browse">
+            <yamvvm:YamvvmNavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_feed.png"/>
+                </OnPlatform>
+            </yamvvm:YamvvmNavigationPage.Icon>
+            <x:Arguments>
+                <views:ItemsPage>
+                    <views:ItemsPage.BindingContext>
+                        <viewmodels:ItemsViewModel />
+                    </views:ItemsPage.BindingContext>
+                </views:ItemsPage>
+            </x:Arguments>
+        </yamvvm:YamvvmNavigationPage>
+
+        <yamvvm:YamvvmNavigationPage Title="About">
+            <yamvvm:YamvvmNavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="tab_about.png"/>
+                </OnPlatform>
+            </yamvvm:YamvvmNavigationPage.Icon>
+            <x:Arguments>
+                <views:AboutPage>
+                    <views:AboutPage.BindingContext>
+                        <viewmodels:AboutViewModel />
+                    </views:AboutPage.BindingContext>
+                </views:AboutPage>
+            </x:Arguments>
+        </yamvvm:YamvvmNavigationPage>
+    </TabbedPage.Children>
+    
+</TabbedPage>

@@ -86,7 +86,8 @@ namespace F3N.Hoard.State
             }
             else
             {
-                throw new InvalidOperationException("Supported public methods are Handle, On with supported parameters of Command, Query, Event");
+                throw new InvalidOperationException(
+                    String.Format("Method {0} with param {1} in {2}: Supported public methods are Handle, On with supported parameters of Command, Query, Event", method.Name, message.Name, _storeType));
             }
         }
 
