@@ -19,7 +19,7 @@ Uses SQLite and Akavache API to provide persistence
 3. Create none Akavache storage example
 4. ~~Provide Xamarin example~~
 5. ~~Documentation~~
-6. Publish NuGet package
+6. ~~Publish NuGet package~~
 
 ## Pre-requisites
 
