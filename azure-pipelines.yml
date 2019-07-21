@@ -26,19 +26,12 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*Droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
-
 - task: VSBuild@1
   inputs:
     solution: 'F3N.Hoard/F3N.Hoard.csproj'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
 
 - task: VSBuild@1
   inputs:
