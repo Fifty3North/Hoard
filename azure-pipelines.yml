@@ -26,6 +26,12 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- task: XamarinAndroid@1
+  inputs:
+    projectFile: '**/*Droid*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
