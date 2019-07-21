@@ -12,7 +12,7 @@ Uses SQLite and Akavache API to provide persistence
 1. ~~Create tests~~
 2. Make storage module pluggable
 3. Create none Akavache storage example
-4. Provide Xamarin example
+4. ~~Provide Xamarin example~~
 5. ~~Documentation~~
 6. Publish NuGet package
 
