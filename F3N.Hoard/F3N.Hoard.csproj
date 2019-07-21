@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Fifty3North</Authors>
+    <Company>Fifty3North (F3N Limited)</Company>
+    <Copyright>Copyright © F3N Limited 2019</Copyright>
+    <Description>Cross platform storage for native apps used in-house at Fifty3North.
+
+Based loosely on Redux and generic dispatcher used in Orleankka, views can subscribe to the store and be notified when it updates.
+
+Works anywhere but tested in Blazor and Xamarin.
+
+Uses SQLite and Akavache API to provide persistence</Description>
+    <RepositoryUrl>https://github.com/Fifty3North/Hoard</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

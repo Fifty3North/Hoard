@@ -1,4 +1,9 @@
 # F3N.Hoard
+
+![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.svg)
+![Azure DevOps builds](https://img.shields.io/azure-devops/build/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
+![Azure DevOps tests](https://img.shields.io/azure-devops/tests/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
+
 Cross platform storage for native apps used in-house at Fifty3North.
 
 Based loosely on Redux and generic dispatcher used in Orleankka, views can subscribe to the store and be notified when it updates.
