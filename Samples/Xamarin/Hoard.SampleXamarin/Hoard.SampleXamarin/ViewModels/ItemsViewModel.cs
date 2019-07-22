@@ -117,5 +117,11 @@ namespace Hoard.SampleXamarin.ViewModels
             await _itemStore.Dispatch(new Store.Commands.AddItem(Guid.NewGuid(), "Item 5", "Item 5 description"));
             await _itemStore.Dispatch(new Store.Commands.AddItem(Guid.NewGuid(), "Item 6", "Item 6 description"));
         }
+
+        public override Task Destroy()
+        {
+            _subscription.Dispose();
+            return base.Destroy();
+        }
     }
 }
