@@ -12,5 +12,9 @@
     <releaseNotes>Initial release</releaseNotes>
     <copyright>Copyright © F3N Limited 2019</copyright>
     <tags>SQLite Xamarin Redux Store</tags>
+    <dependencies>
+      <dependency id="akavache" version="6.5.9" />
+      <dependency id="System.Reactive.Linq" version="4.1.5" />
+    </dependencies>
   </metadata>
 </package>
