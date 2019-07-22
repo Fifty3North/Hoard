@@ -21,6 +21,10 @@ Uses SQLite and Akavache API to provide persistence
 5. ~~Documentation~~
 6. ~~Publish NuGet package~~
 
+## Works well with:
+[F3N.YaMVVM](https://github.com/Fifty3North/YaMVVM) 
+> Yet another Model, View, ViewModel framework for Xamarin Forms.
+
 ## Pre-requisites
 
 Visual Studio 2019 and .Net Core Preview 6 (for Blazor samples)
