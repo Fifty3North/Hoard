@@ -231,4 +231,8 @@ await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObser
 
 ### SQLite
 
+You must initialise Akavache using the following on App start:
+
+```LocalStorage.Initialise("Your.App.Name");```
+
 The data is stored in `%LocalAppData%\Hoard.SampleWeb\BlobCache` (`c:\users\<username>\Appdata\Local\Hoard.SampleWeb\BlobCache`)
