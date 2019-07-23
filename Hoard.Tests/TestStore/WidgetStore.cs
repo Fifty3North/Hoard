@@ -5,24 +5,8 @@ using System.Threading.Tasks;
 
 namespace Hoard.Tests.TestStore
 {
-    public class WidgetStore : StoreCollection<WidgetStore,WidgetState>
+    public class WidgetStore : StoreCollection<WidgetState>
     {
-        public static Task<WidgetStore> Instance
-        {
-            get
-            {
-                return GetInitialisedInstance();
-            }
-        }
-
-        public static Task<IReadOnlyCollection<WidgetState>> State
-        {
-            get
-            {
-                return GetStaticState();
-            }
-        }
-
         public IEnumerable<Event> Handle(Commands.RegisterProduct command)
         {
             if (CurrentState.Any(widget => widget.Id == command.Id))

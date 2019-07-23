@@ -2,6 +2,7 @@
 using F3N.YaMVVM.ViewModel;
 using Hoard.SampleXamarin.Models;
 using Hoard.SampleXamarin.Store;
+using Splat;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -43,7 +44,9 @@ namespace Hoard.SampleXamarin.ViewModels
 
         public NewItemViewModel(Item item = null)
         {
-            if(item == null)
+            _itemStore = Locator.Current.GetService<ItemStore>();
+
+            if (item == null)
             {
                 _id = Guid.NewGuid();
             }
@@ -61,7 +64,7 @@ namespace Hoard.SampleXamarin.ViewModels
 
         public override async Task Initialise()
         {
-            _itemStore = await ItemStore.Instance;
+            await _itemStore.Initialise();
 
             _subscription = _itemStore.ObserveWhereWithEvents(ev => ev.Id == _id).Subscribe(async payload => {
                 switch(payload.@event)
@@ -72,7 +75,7 @@ namespace Hoard.SampleXamarin.ViewModels
                         await this.PopPage();
                         break;
                     case Store.Events.ItemAddFailed failed:
-                        await this.modelPage.DisplayAlert("Error adding item", failed.Reason, "OK");
+                        await this.ModelPage.DisplayAlert("Error adding item", failed.Reason, "OK");
                         break;
                     
                 }

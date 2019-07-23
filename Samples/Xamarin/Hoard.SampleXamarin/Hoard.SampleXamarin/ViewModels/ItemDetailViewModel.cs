@@ -3,6 +3,7 @@ using F3N.YaMVVM.ViewModel;
 using Hoard.SampleXamarin.Models;
 using Hoard.SampleXamarin.Store;
 using Hoard.SampleXamarin.Views;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,10 +24,11 @@ namespace Hoard.SampleXamarin.ViewModels
         public string Text { get; set; }
         public string Description { get; set; }
 
-        public Command EditCommand => new Command(async () => await this.PushPage<NewItemPage>(new NewItemViewModel(_item)));
+        public Command EditCommand => new Command(async () => await this.PushPage<NewItemPage>(new NewItemViewModel(item: _item)));
 
         public ItemDetailViewModel(Guid id)
         {
+            _itemStore = Locator.Current.GetService<ItemStore>();
             _id = id;
         }
 
@@ -51,8 +53,9 @@ namespace Hoard.SampleXamarin.ViewModels
 
         public override async Task Initialise()
         {
-            _itemStore = await ItemStore.Instance;
-            _itemState = await ItemStore.State;
+            await _itemStore.Initialise();
+
+            _itemState = _itemStore.CurrentState;
 
             _subscription = _itemStore.ObserveWhere(item => item.Id == _item.Id).Subscribe(async (item) => {
                 _item = item;

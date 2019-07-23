@@ -21,7 +21,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h)
-                .Select(ev => store.GetState());
+                .Select(ev => store.CurrentState);
         }
 
         public static IObservable<(T State, Event @event)> ObserveWithEvents<T>(this IStore<T> store) where T : class, IStatefulItem
@@ -38,7 +38,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h)
-                .Select(ev => (store.GetState(), ev));
+                .Select(ev => (store.CurrentState, ev));
         }
 
         public static IObservable<T> ObserveWhere<T>(this IStore<T> store, Func<Event, bool> predicate) where T : class, IStatefulItem
@@ -55,7 +55,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h).Where(predicate)
-                .Select(ev => store.GetState());
+                .Select(ev => store.CurrentState);
         }
 
         public static IObservable<(T State, Event @event)> ObserveWhereWithEvents<T>(this IStore<T> store, Func<Event, bool> predicate) where T : class, IStatefulItem
@@ -72,7 +72,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h).Where(predicate)
-                .Select(ev => (store.GetState(), ev));
+                .Select(ev => (store.CurrentState, ev));
         }
 
         public static IObservable<T> Observe<T>(this IStoreCollection<T> store) where T : class, IStatefulCollectionItem
@@ -89,7 +89,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h)
-                .Select(ev => store.GetState().FirstOrDefault(s => s.Id == ev.Id));
+                .Select(ev => store.CurrentState.FirstOrDefault(s => s.Id == ev.Id));
         }
 
         public static IObservable<(T State, Event @event)> ObserveWithEvents<T>(this IStoreCollection<T> store) where T : class, IStatefulCollectionItem
@@ -106,7 +106,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h)
-                .Select(ev => (store.GetState().FirstOrDefault(s => s.Id == ev.Id), ev));
+                .Select(ev => (store.CurrentState.FirstOrDefault(s => s.Id == ev.Id), ev));
         }
 
         public static IObservable<T> ObserveWhere<T>(this IStoreCollection<T> store, Func<Event, bool> predicate) where T : class, IStatefulCollectionItem
@@ -123,7 +123,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h).Where(predicate)
-                .Select(ev => store.GetState().FirstOrDefault(s => s.Id == ev.Id));
+                .Select(ev => store.CurrentState.FirstOrDefault(s => s.Id == ev.Id));
         }
 
         public static IObservable<(T State, Event @event)> ObserveWhereWithEvents<T>(this IStoreCollection<T> store, Func<Event, bool> predicate) where T : class, IStatefulCollectionItem
@@ -140,7 +140,7 @@ namespace F3N.Hoard.Extensions
                     },
                     h => store.StateChangedEvent += h,
                     h => store.StateChangedEvent -= h).Where(predicate)
-                .Select(ev => (store.GetState().FirstOrDefault(s => s.Id == ev.Id), ev));
+                .Select(ev => (store.CurrentState.FirstOrDefault(s => s.Id == ev.Id), ev));
         }
     }
 }

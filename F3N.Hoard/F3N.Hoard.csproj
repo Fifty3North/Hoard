@@ -13,6 +13,7 @@ Works anywhere but tested in Blazor and Xamarin.
 
 Uses SQLite and Akavache API to provide persistence</Description>
     <RepositoryUrl>https://github.com/Fifty3North/Hoard</RepositoryUrl>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -20,7 +20,9 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItem()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             WidgetState updatedItem = null;
 
             var subscription = widgetStore.Observe().Subscribe(state =>
@@ -42,7 +44,9 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemAndEvent()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             WidgetState updatedItem = null;
             TestStore.Events.ProductRegistered ev = null;
 
@@ -74,7 +78,8 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemUsingWhereClause()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
 
             List<WidgetState> products = new List<WidgetState>();
 
@@ -107,7 +112,8 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemAndEventUsingWhereClause()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
 
             List<WidgetState> products = new List<WidgetState>();
             List<Event> events = new List<Event>();
@@ -151,7 +157,9 @@ namespace Hoard.Tests
         [Fact]
         public async Task NonRegisteredCommandThrows()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             WidgetState updatedItem = null;
 
             var subscription = widgetStore.Observe().Subscribe(state =>
@@ -170,7 +178,9 @@ namespace Hoard.Tests
         [Fact]
         public async Task NonRegisteredEventThrows()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             WidgetState updatedItem = null;
 
             var subscription = widgetStore.Observe().Subscribe(state =>
@@ -190,10 +200,12 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureStateIsUpdated()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             await widgetStore.Reset();
 
-            var widgetState = await WidgetStore.State;
+            var widgetState = widgetStore.CurrentState;
 
             Assert.Empty(widgetState);
 
@@ -209,7 +221,7 @@ namespace Hoard.Tests
             await widgetStore.Dispatch(product4Command);
             await widgetStore.Dispatch(product5Command);
 
-            widgetState = await WidgetStore.State;
+            widgetState = widgetStore.CurrentState;
             Assert.Equal(5, widgetState.Count);
             Assert.Equal(15, widgetState.First(w => w.Id == product1Command.Id).StockQuantity);
             Assert.Equal(16, widgetState.First(w => w.Id == product2Command.Id).StockQuantity);
@@ -222,10 +234,12 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureItemInCollectionCanBeUpdated()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             await widgetStore.Reset();
 
-            var widgetState = await WidgetStore.State;
+            var widgetState = widgetStore.CurrentState;
 
             Assert.Empty(widgetState);
 
@@ -241,7 +255,7 @@ namespace Hoard.Tests
             await widgetStore.Dispatch(product4Command);
             await widgetStore.Dispatch(product5Command);
 
-            widgetState = await WidgetStore.State;
+            widgetState = widgetStore.CurrentState;
             Assert.Equal(5, widgetState.Count);
             Assert.Equal(15, widgetState.First(w => w.Id == product1Command.Id).StockQuantity);
             Assert.Equal(16, widgetState.First(w => w.Id == product2Command.Id).StockQuantity);
@@ -252,7 +266,7 @@ namespace Hoard.Tests
             var stockAdjustmentCommand = new TestStore.Commands.CheckOutItem(product3Command.Id, 5);
             await widgetStore.Dispatch(stockAdjustmentCommand);
 
-            widgetState = await WidgetStore.State;
+            widgetState = widgetStore.CurrentState;
             Assert.Equal(12, widgetState.First(w => w.Id == product3Command.Id).StockQuantity);
         }
 
@@ -260,10 +274,12 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureItemCanBeDeleted()
         {
-            var widgetStore = await WidgetStore.Instance;
+            var widgetStore = new WidgetStore();
+            await widgetStore.Initialise();
+
             await widgetStore.Reset();
 
-            var widgetState = await WidgetStore.State;
+            var widgetState = widgetStore.CurrentState;
 
             Assert.Empty(widgetState);
 
@@ -275,8 +291,8 @@ namespace Hoard.Tests
             await widgetStore.Dispatch(product2Command);
             await widgetStore.Dispatch(product3Command);
 
-            widgetState = await WidgetStore.State;
-            Assert.Equal(3, widgetState.Count);
+            widgetState = widgetStore.CurrentState;
+            Assert.Equal(3, widgetState.Count());
             Assert.Equal(15, widgetState.First(w => w.Id == product1Command.Id).StockQuantity);
             Assert.Equal(16, widgetState.First(w => w.Id == product2Command.Id).StockQuantity);
             Assert.Equal(17, widgetState.First(w => w.Id == product3Command.Id).StockQuantity);
@@ -284,7 +300,7 @@ namespace Hoard.Tests
             var deleteCommand = new TestStore.Commands.RemoveProduct(product3Command.Id);
             await widgetStore.Dispatch(deleteCommand);
 
-            widgetState = await WidgetStore.State;
+            widgetState = widgetStore.CurrentState;
             Assert.Equal(2, widgetState.Count);
             Assert.True(widgetState.All(w => w.Id != product3Command.Id));
         }

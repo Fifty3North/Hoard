@@ -24,13 +24,20 @@ namespace F3N.Hoard.State
         public Guid Id { get; protected set; }
     }
     
-    public interface IStore
+    public interface IStore : IInternalStoreMethods
     {
         //event Action StateChanged;
         event StageChangedEventHandler StateChangedEvent;
     }
 
     public delegate void StageChangedEventHandler(object sender, Event e);
+
+    public interface IInternalStoreMethods
+    {
+        bool IsInitialised { get; }
+
+        Task Initialise();
+    }
 
     /// <summary>
     ///     Represents a store that encapsulates a state tree and is used to dispatch actions to update the
@@ -61,7 +68,7 @@ namespace F3N.Hoard.State
         /// <returns>
         ///     The current state tree.
         /// </returns>
-        TState GetState();
+        TState CurrentState { get; }
     }
 
     /// <summary>
@@ -93,6 +100,6 @@ namespace F3N.Hoard.State
         /// <returns>
         ///     The current state tree.
         /// </returns>
-        IReadOnlyCollection<TState> GetState();
+        IReadOnlyCollection<TState> CurrentState { get; }
     }
 }

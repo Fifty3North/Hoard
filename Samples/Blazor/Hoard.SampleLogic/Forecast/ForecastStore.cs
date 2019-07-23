@@ -6,24 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hoard.SampleLogic.Forecast
 {
-    public class ForecastStore : StoreCollection<ForecastStore, ForecastState>
+    public class ForecastStore : StoreCollection<ForecastState>
     {
-        public static Task<ForecastStore> Instance
-        {
-            get
-            {
-                return GetInitialisedInstance();
-            }
-        }
-
-        public static Task<IReadOnlyCollection<ForecastState>> State
-        {
-            get
-            {
-                return GetStaticState();
-            }
-        }
-
         public IEnumerable<Event> Handle(Commands.RecordObservedTemperature command)
         {
             return new[] { new Events.ObservedTemperatureRecorded(command.Id, command.DateRecorded, command.Temperature) };

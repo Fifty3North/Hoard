@@ -124,7 +124,7 @@ namespace F3N.Hoard.State
         {
             while (true)
             {
-                if (actor == typeof(Store<,>) || actor == null)
+                if (actor == typeof(Store<>) || actor == null)
                     yield break;
 
                 IEnumerable<MethodInfo> methods = actor

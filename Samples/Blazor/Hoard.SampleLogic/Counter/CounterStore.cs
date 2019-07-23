@@ -6,24 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hoard.SampleLogic.Counter
 {
-    public class CounterStore : Store<CounterStore, CounterState>
+    public class CounterStore : Store<CounterState>
     {
-        public static Task<CounterStore> Instance
-        {
-            get
-            {
-                return GetInitialisedInstance();
-            }
-        }
-
-        public static Task<CounterState> State
-        {
-            get
-            {
-                return GetStaticState();
-            }
-        }
-
         public IEnumerable<Event> Handle(Commands.IncrementCounter command)
         {
             return new [] { new Events.CounterIncremented() };

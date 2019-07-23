@@ -8,24 +8,8 @@ using System.Threading.Tasks;
 
 namespace Hoard.SampleXamarin.Store
 {
-    public class ItemStore : StoreCollection<ItemStore,Item>
+    public class ItemStore : StoreCollection<Item>
     {
-        public static Task<ItemStore> Instance
-        {
-            get
-            {
-                return GetInitialisedInstance();
-            }
-        }
-
-        public static Task<IReadOnlyCollection<Item>> State
-        {
-            get
-            {
-                return GetStaticState();
-            }
-        }
-
         public IEnumerable<Event> Handle(Commands.AddItem command)
         {
             if(command.Id == Guid.Empty)

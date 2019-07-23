@@ -3,6 +3,7 @@ using F3N.YaMVVM.ViewModel;
 using Hoard.SampleXamarin.Models;
 using Hoard.SampleXamarin.Store;
 using Hoard.SampleXamarin.Views;
+using Splat;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -29,6 +30,7 @@ namespace Hoard.SampleXamarin.ViewModels
 
         public ItemsViewModel()
         {
+            _itemStore = Locator.Current.GetService<ItemStore>();
             Items = new ObservableCollection<Item>();
             Title = "Browse";
             RefreshItemsCommand = new Command(async () => await LoadItems());
@@ -43,7 +45,8 @@ namespace Hoard.SampleXamarin.ViewModels
 
         public override async Task Initialise()
         {
-            _itemStore = await ItemStore.Instance;
+            await _itemStore.Initialise();
+
             _subscription = _itemStore.ObserveWithEvents().Subscribe(async payload => {
                 switch(payload.@event)
                 {
@@ -84,7 +87,7 @@ namespace Hoard.SampleXamarin.ViewModels
 
             try
             {
-                var items = await ItemStore.State;
+                var items = _itemStore.CurrentState;
 
                 if(items.Count == 0)
                 {

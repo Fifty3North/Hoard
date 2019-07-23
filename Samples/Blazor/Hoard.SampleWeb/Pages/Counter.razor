@@ -2,6 +2,8 @@
 @using F3N.Hoard.Extensions
 @using F3N.Hoard.State
 
+@inject CounterStore counterStore;
+
 @implements IDisposable
 
 @page "/counter"
@@ -15,20 +17,21 @@
 <button class="btn btn-primary" @onclick="@DecrementCount">Down</button>
 
 @functions {
-    CounterStore counterStore;
+
+    
     CounterState state;
     IDisposable subscription;
 
     protected override async Task OnInitAsync()
     {
-        counterStore = await CounterStore.Instance;
+        await counterStore.Initialise();
 
         subscription = counterStore.Observe().Subscribe((s) =>
         {
             currentCount = s.Count;
         });
 
-        state = await CounterStore.State;
+        state = counterStore.CurrentState;
 
         currentCount = state.Count;
     }

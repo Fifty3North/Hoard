@@ -10,63 +10,40 @@ using System.Threading.Tasks;
 
 namespace F3N.Hoard.State
 {
-    public abstract class Store<TStore, TState> : IStore<TState> 
+    public abstract class Store<TState> : IStore<TState>, IInternalStoreMethods
         where TState : class, IStatefulItem, new()
-        where TStore : Store<TStore, TState>, new()
     {
-        protected TState _state = default(TState);
+        protected TState _state = default;
 
         protected static object _lock = new object();
+        private string _storeKeyName;
 
-        private bool _isIntialised = false;
-        private static TStore _instance;
-        private static string _storeKeyName;
-        private static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+        public bool IsInitialised { get; private set; }
 
-
-       
         private IStorage Storage { get { return LocalStorage.LocalMachineStorage; } }
 
-        static Store()
+        public async Task Initialise()
         {
-            _instance = new TStore();
-        }
-
-        protected static async Task<TState> GetStaticState([CallerFilePath] string callerFilePathAttribute = "")
-        {
-            var instance = await GetInitialisedInstance(callerFilePathAttribute);
-            return instance.CurrentState;
-        }
-
-        protected static async Task<TStore> GetInitialisedInstance([CallerFilePath] string callerFilePathAttribute = "")
-        {
-            if (!_instance._isIntialised)
+            if (!IsInitialised)
             {
-                await semaphoreSlim.WaitAsync();
                 try
                 {
-                    if (!_instance._isIntialised)
+                    if (!IsInitialised)
                     {
-                        _storeKeyName = System.IO.Path.GetFileNameWithoutExtension(callerFilePathAttribute);
-                        await _instance.Initialise(_storeKeyName);
+                        _storeKeyName = this.GetType().Name;
 
-                        _instance._isIntialised = true;
+                        await LoadInitialState();
+
+                        InitialiseStoreSubscription();
+
+                        IsInitialised = true;
                     }
                 }
-                finally
+                catch (Exception ex)
                 {
-                    semaphoreSlim.Release();
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
                 }
             }
-
-            return _instance;
-        }
-
-        private async Task Initialise(string storeName)
-        {
-            await LoadInitialState(storeName);
-
-            InitialiseStoreSubscription();
         }
 
         private void InitialiseStoreSubscription()
@@ -81,10 +58,10 @@ namespace F3N.Hoard.State
             });
         }
 
-        private async Task LoadInitialState(string storeName)
+        private async Task LoadInitialState()
         {
             // Load from Storage
-            TState resumedState = await Storage.GetByKey<TState>(storeName);
+            TState resumedState = await Storage.GetByKey<TState>(_storeKeyName);
 
             // Default if not found
             _state = resumedState ?? InitialiseState();
@@ -104,10 +81,12 @@ namespace F3N.Hoard.State
             return new TState();
         }
 
-        protected TState CurrentState
+        public TState CurrentState
         {
             get
             {
+                if (!IsInitialised) throw new MethodAccessException("Store must be initialised before use;");
+
                 TState readOnly;
 
                 lock (_lock)
@@ -139,6 +118,8 @@ namespace F3N.Hoard.State
 
         public async Task Dispatch<T>(DomainCommand<T> command) where T : IStore<TState>
         {
+            if (!IsInitialised) throw new MethodAccessException("Store must be initialised before use;");
+
             IEnumerable<Event> events = await Dispatcher<T>.Dispatch(this, command);
 
             foreach (Event e in events?.ToList())
@@ -154,69 +135,40 @@ namespace F3N.Hoard.State
             StateChangedEvent?.Invoke(this, ev);
             return CurrentState;
         }
-
-        public TState GetState()
-        {
-            return CurrentState;
-        }
     }
 
 
-    public abstract class StoreCollection<TStore, TState> : IStoreCollection<TState> 
+    public abstract class StoreCollection<TState> : IStoreCollection<TState>
         where TState : class, IStatefulCollectionItem
-        where TStore : StoreCollection<TStore, TState>, new()
     {
         private List<TState> _state = new List<TState>();
 
         private readonly object _lock = new object();
 
-        private bool _isIntialised = false;
-        private static TStore _instance;
-        private static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
-
         private IStorage Storage { get { return LocalStorage.LocalMachineStorage; } }
 
-        static StoreCollection()
+        public async Task Initialise()
         {
-            _instance = new TStore();
-        }
-
-        protected static async Task<IReadOnlyCollection<TState>> GetStaticState()
-        {
-            var instance = await GetInitialisedInstance();
-            return instance.CurrentState;
-        }
-
-        protected static async Task<TStore> GetInitialisedInstance()
-        {
-            if (!_instance._isIntialised)
+            if (!IsInitialised)
             {
-                await semaphoreSlim.WaitAsync();
                 try
                 {
-                    if (!_instance._isIntialised)
+                    if (!IsInitialised)
                     {
-                        await _instance.Initialise();
+                        await LoadInitialState();
 
-                        _instance._isIntialised = true;
+                        InitialiseStoreSubscription();
+
+                        await PostInitialise();
+
+                        IsInitialised = true;
                     }
                 }
-                finally
+                catch (Exception ex)
                 {
-                    semaphoreSlim.Release();
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
                 }
             }
-
-            return _instance;
-        }
-
-        private async Task Initialise()
-        {
-            await LoadInitialState();
-
-            InitialiseStoreSubscription();
-
-            await PostInitialise();
         }
 
         private void InitialiseStoreSubscription()
@@ -266,10 +218,12 @@ namespace F3N.Hoard.State
             await Task.CompletedTask;
         }
 
-        protected IReadOnlyCollection<TState> CurrentState
+        public IReadOnlyCollection<TState> CurrentState
         {
             get
             {
+                if (!IsInitialised) throw new MethodAccessException("Store must be initialised before use;");
+
                 IReadOnlyCollection<TState> readOnly;
 
                 lock (_lock)
@@ -280,6 +234,8 @@ namespace F3N.Hoard.State
                 return readOnly;
             }
         }
+
+        public bool IsInitialised { get; private set; }
 
         protected Task SetState(List<TState> newState)
         {
@@ -369,6 +325,8 @@ namespace F3N.Hoard.State
 
         public async Task Dispatch<T>(DomainCommand<T> command) where T : IStoreCollection<TState>
         {
+            if (!IsInitialised) throw new MethodAccessException("Store must be initialised before use;");
+
             IEnumerable<Event> events = await Dispatcher<T>.Dispatch(this, command);
 
             foreach (Event e in events?.ToList())
@@ -382,11 +340,6 @@ namespace F3N.Hoard.State
         {
             Dispatcher<T>.Dispatch(this, ev);
             StateChangedEvent?.Invoke(this, ev);
-            return CurrentState;
-        }
-
-        public IReadOnlyCollection<TState> GetState()
-        {
             return CurrentState;
         }
     }
