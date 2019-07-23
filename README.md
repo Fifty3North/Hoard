@@ -90,11 +90,15 @@ There are two types of **store**: one for storing a single object, and one for s
 
 **Single object**
 
-`public class CounterStore : Store<CounterStore, CounterState> { ... }`
+```csharp
+public class CounterStore : Store<CounterStore, CounterState> { ... }
+```
 
 **Collection**
 
-`public class WidgetStore : StoreCollection<WidgetStore,WidgetState> { ... }`
+```csharp
+public class WidgetStore : StoreCollection<WidgetStore,WidgetState> { ... }
+```
 
 #### Command Hanlders
 
@@ -158,13 +162,18 @@ public class WidgetState : IStatefulCollectionItem
 ### UI
 
 The UI can either query state directly:
+```csharp
+WidgetStore widgetStore = new WidgetStore();
+await widgetStore.Initialise();
 
-`WidgetState state = await WidgetStore.State`
+WidgetState state = widgetStore.CurrentState
+```
 
 Or subsribe to the store to receive updates:
 
 ```csharp
-ForecastStore forecastStore = await ForecastStore.Instance;
+ForecastStore forecastStore = new ForecastStore();
+await forecastStore.Initialise();
 
 IDisposable subscription = forecastStore.Observe().Subscribe(state =>
 {
@@ -223,7 +232,8 @@ var subscription = widgetStore.ObserveWhereWithEvents(ev => ev.Id == product1Com
 Take user input and dispatch to the store
 
 ```csharp
-ForecastStore forecastStore = await ForecastStore.Instance;
+ForecastStore forecastStore = new ForecastStore();
+await forecastStore.Initialise();
 
 await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
 ```
@@ -233,6 +243,8 @@ await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObser
 
 You must initialise Akavache using the following on App start:
 
-```LocalStorage.Initialise("Your.App.Name");```
+```csharp
+LocalStorage.Initialise("Your.App.Name");
+```
 
 The data is stored in `%LocalAppData%\Hoard.SampleWeb\BlobCache` (`c:\users\<username>\Appdata\Local\Hoard.SampleWeb\BlobCache`)
