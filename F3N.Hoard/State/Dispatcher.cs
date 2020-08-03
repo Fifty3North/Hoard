@@ -14,7 +14,7 @@ namespace F3N.Hoard.State
 
         private static readonly string[] conventions = { "On", "Handle" };
 
-        private static readonly Dictionary<Type, Func<IStore, DomainCommand<TStore>, object>> _commandHandlers = new Dictionary<Type, Func<IStore, DomainCommand<TStore>, object>>();
+        private static readonly Dictionary<Type, Func<IStore, Command<TStore>, object>> _commandHandlers = new Dictionary<Type, Func<IStore, Command<TStore>, object>>();
         private static readonly Dictionary<Type, Action<IStore, Event>> _eventHandlers = new Dictionary<Type, Action<IStore, Event>>();
 
         static Dispatcher()
@@ -25,10 +25,10 @@ namespace F3N.Hoard.State
             }
         }
 
-        public static async Task<IEnumerable<Event>> Dispatch(IStore target, DomainCommand<TStore> command)
+        public static async Task<IEnumerable<Event>> Dispatch(IStore target, Command<TStore> command)
         {
             var commandType = command.GetType();
-            Func<IStore, DomainCommand<TStore>, object> handler = _commandHandlers.Find(commandType);
+            Func<IStore, Command<TStore>, object> handler = _commandHandlers.Find(commandType);
 
             if (handler != null)
             {
@@ -76,7 +76,7 @@ namespace F3N.Hoard.State
 
             IEnumerable<Type> interfaces = message.GetTypeInfo().ImplementedInterfaces;
 
-            if (interfaces.Any(x => x.IsConstructedGenericType && x.GetGenericTypeDefinition() == typeof(DomainCommand<>) && x.GenericTypeArguments.First() == _storeType))
+            if (interfaces.Any(x => x.IsConstructedGenericType && x.GetGenericTypeDefinition() == typeof(Command<>) && x.GenericTypeArguments.First() == _storeType))
             {
                 _commandHandlers.Add(message, MethodToCommmandHandler(method));
             }
@@ -91,7 +91,7 @@ namespace F3N.Hoard.State
             }
         }
 
-        private static Func<IStore, DomainCommand<TStore>, object> MethodToCommmandHandler(MethodInfo method)
+        private static Func<IStore, Command<TStore>, object> MethodToCommmandHandler(MethodInfo method)
         {
             ParameterExpression target = Expression.Parameter(typeof(object));
             ParameterExpression request = Expression.Parameter(typeof(object));
@@ -100,7 +100,7 @@ namespace F3N.Hoard.State
             UnaryExpression requestConversion = Expression.Convert(request, method.GetParameters()[0].ParameterType);
 
             MethodCallExpression call = Expression.Call(targetConversion, method, requestConversion);
-            Func<IStore, DomainCommand<TStore>, object> func = Expression.Lambda<Func<IStore, DomainCommand<TStore>, object>>(call, target, request).Compile();
+            Func<IStore, Command<TStore>, object> func = Expression.Lambda<Func<IStore, Command<TStore>, object>>(call, target, request).Compile();
 
             return (t, r) => func(t, r);
         }

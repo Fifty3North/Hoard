@@ -17,8 +17,8 @@ Uses SQLite and Akavache API to provide persistence</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="akavache" Version="6.5.9" />
-    <PackageReference Include="System.Reactive.Linq" Version="4.1.5" />
+    <PackageReference Include="akavache" Version="6.10.20" />
+    <PackageReference Include="System.Reactive.Linq" Version="4.4.1" />
   </ItemGroup>
 
 </Project>

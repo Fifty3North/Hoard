@@ -16,13 +16,13 @@
 
 <button class="btn btn-primary" @onclick="@DecrementCount">Down</button>
 
-@functions {
+@code {
 
     
     CounterState state;
     IDisposable subscription;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         await counterStore.Initialise();
 

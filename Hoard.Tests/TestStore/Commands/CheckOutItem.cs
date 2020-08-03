@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Commands
 {
-    public class CheckOutItem : DomainCommand<WidgetStore>
+    public class CheckOutItem : Command<WidgetStore>
     {
         public readonly Guid Id;
         public readonly int Quantity; 

@@ -11,9 +11,9 @@ namespace F3N.Hoard.State
         Guid Id { get; }
     }
 
-    public interface DomainCommand { }
+    public interface ICommand { }
 
-    public interface DomainCommand<TStore> : DomainCommand where TStore : IStore
+    public interface Command<TStore> : ICommand where TStore : IStore
     {
     }
 
@@ -58,7 +58,7 @@ namespace F3N.Hoard.State
         ///     Varies depending on store enhancers. With no enhancers Dispatch returns the action that 
         ///     was passed to it.
         /// </returns>
-        Task Dispatch<T>(DomainCommand<T> action) where T : IStore<TState>;
+        Task Dispatch<T>(Command<T> action) where T : IStore<TState>;
 
         TState Dispatch<T>(Event ev) where T : IStore<TState>;
 
@@ -90,7 +90,7 @@ namespace F3N.Hoard.State
         ///     Varies depending on store enhancers. With no enhancers Dispatch returns the action that 
         ///     was passed to it.
         /// </returns>
-        Task Dispatch<T>(DomainCommand<T> action) where T : IStoreCollection<TState>;
+        Task Dispatch<T>(Command<T> action) where T : IStoreCollection<TState>;
 
         IReadOnlyCollection<TState> Dispatch<T>(Event ev) where T : IStoreCollection<TState>;
 

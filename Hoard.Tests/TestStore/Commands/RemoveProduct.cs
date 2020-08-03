@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Commands
 {
-    public class RemoveProduct : DomainCommand<WidgetStore>
+    public class RemoveProduct : Command<WidgetStore>
     {
         public readonly Guid Id;
 

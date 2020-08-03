@@ -116,7 +116,7 @@ namespace F3N.Hoard.State
 
         public event StageChangedEventHandler StateChangedEvent;
 
-        public async Task Dispatch<T>(DomainCommand<T> command) where T : IStore<TState>
+        public async Task Dispatch<T>(Command<T> command) where T : IStore<TState>
         {
             if (!IsInitialised) throw new MethodAccessException("Store must be initialised before use;");
 
@@ -323,7 +323,7 @@ namespace F3N.Hoard.State
 
         public event StageChangedEventHandler StateChangedEvent;
 
-        public async Task Dispatch<T>(DomainCommand<T> command) where T : IStoreCollection<TState>
+        public async Task Dispatch<T>(Command<T> command) where T : IStoreCollection<TState>
         {
             if (!IsInitialised) throw new MethodAccessException("Store must be initialised before use;");
 

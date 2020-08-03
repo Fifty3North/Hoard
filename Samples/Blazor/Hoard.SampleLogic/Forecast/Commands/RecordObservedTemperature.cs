@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hoard.SampleLogic.Forecast.Commands
 {
-    public class RecordObservedTemperature : DomainCommand<ForecastStore>
+    public class RecordObservedTemperature : Command<ForecastStore>
     {
         public readonly Guid Id;
         public readonly DateTime DateRecorded;
