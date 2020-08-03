@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hoard.SampleXamarin.Store.Commands
 {
-    public class RemoveItem : DomainCommand<ItemStore>
+    public class RemoveItem : Command<ItemStore>
     {
         public readonly Guid Id;
 

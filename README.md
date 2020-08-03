@@ -43,12 +43,12 @@ Your store will have **command handlers** and **event handlers**.
 
 Commands contain a unit of user intent. They contain all the information required to validate the intent and change state.
 
-Commands belong to a store and are typed as such using inheritance from base DomainCommand.
+Commands belong to a store and are typed as such using inheritance from base Command.
 
 They should be immutable by design but this is not enforced by Hoard.
 
 ```csharp
-public class RegisterProduct : DomainCommand<WidgetStore>
+public class RegisterProduct : Command<WidgetStore>
 {
     public readonly Guid Id;
     public readonly string Title;
