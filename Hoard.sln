@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.Tests", "Hoard.Tests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77A5E88A-75C7-4041-A962-98CE81367E98}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
 		global.json = global.json
 		README.md = README.md
 	EndProjectSection
@@ -27,11 +28,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin.Android
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin.iOS", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.iOS\Hoard.SampleXamarin.iOS.csproj", "{E05B36F3-F29C-4AA9-9F51-D74905E8E999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.csproj", "{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleXamarin", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.csproj", "{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3N.Hoard.BlazorLocalStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorLocalStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3N.Hoard.Shared", "F3N.Hoard.Shared\F3N.Hoard.Shared.csproj", "{5351F702-A8F7-4EBB-8220-26E753F31395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.Shared", "F3N.Hoard.Shared\F3N.Hoard.Shared.csproj", "{5351F702-A8F7-4EBB-8220-26E753F31395}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
