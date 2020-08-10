@@ -26,4 +26,4 @@ jobs:
     - name: Build Hoard.Tests
       run: dotnet build Hoard.Tests --configuration Release --no-restore
     - name: Test
-      run: dotnet test Hoard.Tests/Hoard.Tests.csproj --no-build --no-restore --verbosity normal
+      run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
