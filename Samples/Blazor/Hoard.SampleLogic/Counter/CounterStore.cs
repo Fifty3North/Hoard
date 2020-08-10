@@ -3,6 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using F3N.Hoard.BlazorLocalStorage;
+using F3N.Hoard.Shared;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.JSInterop;
 
 namespace Hoard.SampleLogic.Counter
 {
@@ -18,14 +22,18 @@ namespace Hoard.SampleLogic.Counter
             return new[] { new Events.CounterDecremented() };
         }
 
-        public void On(Events.CounterIncremented ev)
+        public async void On(Events.CounterIncremented ev)
         {
             _state.Count++;
         }
 
-        public void On(Events.CounterDecremented ev)
+        public async void On(Events.CounterDecremented ev)
         {
             _state.Count--;
+        }
+
+        public CounterStore(IStorage _storage) : base(_storage)
+        {
         }
     }
 }

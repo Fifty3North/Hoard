@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj" />
     <ProjectReference Include="..\..\..\F3N.Hoard\F3N.Hoard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.ProtectedBrowserStorage" Version="0.1.0-alpha.19521.1" />
   </ItemGroup>
 
 </Project>

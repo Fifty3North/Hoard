@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using F3N.Hoard.Shared;
 
 namespace F3N.Hoard.State
 {
@@ -20,8 +21,13 @@ namespace F3N.Hoard.State
 
         public bool IsInitialised { get; private set; }
 
-        private IStorage Storage { get { return LocalStorage.LocalMachineStorage; } }
+        private IStorage Storage;
 
+        public Store(IStorage _storage)
+        {
+            Storage = _storage;
+        }
+        
         public async Task Initialise()
         {
             if (!IsInitialised)

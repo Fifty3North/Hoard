@@ -21,4 +21,8 @@ Uses SQLite and Akavache API to provide persistence</Description>
     <PackageReference Include="System.Reactive.Linq" Version="4.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\F3N.Hoard.Shared\F3N.Hoard.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

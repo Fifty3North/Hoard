@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using Akavache;
+using F3N.Hoard.BlazorLocalStorage;
+using F3N.Hoard.Shared;
+using F3N.Hoard.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -37,10 +42,17 @@ namespace Hoard.Sample
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor().AddCircuitOptions(o =>
+            {
+                o.DetailedErrors = true;
+            });
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<ForecastStore>();
-            services.AddSingleton<CounterStore>();
+            services.AddTransient<CounterStore>();
+            services.AddTransient<IStorage, BlazorStore>();
+            //services.AddTransient<IStorage, BlobCacheStorage<IBlobCache>>();
+            
+            services.AddProtectedBrowserStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
