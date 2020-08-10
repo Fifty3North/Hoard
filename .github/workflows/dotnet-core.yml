@@ -15,11 +15,15 @@ jobs:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
     - name: Install dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    - name: Build Hoard.Shared
+      run: dotnet build F3N.Hoard.Shared --configuration Release --no-restore
+    - name: Build Hoard
+      run: dotnet build F3N.Hoard --configuration Release --no-restore
+    - name: Build F3N.Hoard.BlazorLocalStorage
+      run: dotnet build F3N.Hoard.BlazorLocalStorage --configuration Release --no-restore
+    - name: Build Hoard.Tests
+      run: dotnet build Hoard.Tests --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
