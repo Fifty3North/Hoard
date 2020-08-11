@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Fifty3North</Authors>
     <Company>Fifty3North (F3N Limited)</Company>
-    <Copyright>Copyright © F3N Limited 2019</Copyright>
+    <Copyright>Copyright © F3N Limited 2020</Copyright>
     <Description>Cross platform storage for native apps used in-house at Fifty3North.
 
 Based loosely on Redux and generic dispatcher used in Orleankka, views can subscribe to the store and be notified when it updates.
@@ -12,17 +12,15 @@ Based loosely on Redux and generic dispatcher used in Orleankka, views can subsc
 Works anywhere but tested in Blazor and Xamarin.
 
 Uses SQLite and Akavache API to provide persistence</Description>
-    <RepositoryUrl>https://github.com/Fifty3North/Hoard</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Fifty3North/Hoard.git</RepositoryUrl>
     <LangVersion>default</LangVersion>
+	<Version>1.1.0</Version>
+	  <License>https://licenses.nuget.org/MIT</License>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="akavache" Version="6.10.20" />
     <PackageReference Include="System.Reactive.Linq" Version="4.4.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\F3N.Hoard.Shared\F3N.Hoard.Shared.csproj" />
   </ItemGroup>
 
 </Project>

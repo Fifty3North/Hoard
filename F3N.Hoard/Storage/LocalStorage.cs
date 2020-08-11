@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using F3N.Hoard.Shared;
 
 namespace F3N.Hoard.Storage
 {

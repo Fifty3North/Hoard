@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akavache;
 using F3N.Hoard.BlazorLocalStorage;
-using F3N.Hoard.Shared;
 using F3N.Hoard.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Hoard.SampleWeb.Data;
 using Hoard.SampleLogic.Forecast;
 using Hoard.SampleLogic.Counter;
+using F3N.Hoard;
 
 namespace Hoard.Sample
 {

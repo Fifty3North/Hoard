@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using F3N.Hoard.BlazorLocalStorage;
-using F3N.Hoard.Shared;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.JSInterop;
+using F3N.Hoard;
 
 namespace Hoard.SampleLogic.Counter
 {

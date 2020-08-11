@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using F3N.Hoard.Shared;
 using F3N.Hoard.Storage;
 using F3N.Hoard.Utils;
 using Microsoft.AspNetCore.DataProtection;
