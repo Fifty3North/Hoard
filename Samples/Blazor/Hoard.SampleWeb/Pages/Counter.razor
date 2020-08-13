@@ -19,23 +19,31 @@
 
 @code {
 
-    
+
     CounterState state;
     IDisposable subscription;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await counterStore.Initialise();
-
-        subscription = counterStore.Observe().Subscribe(async (s) =>
+        if (firstRender)
         {
-          currentCount = s.Count;
-        });
+            await counterStore.Initialise();
+            subscription = counterStore.Observe().Subscribe(async (s) =>
+            {
+                currentCount = s.Count;
+            });
 
-        state = counterStore.CurrentState;
+            state = counterStore.CurrentState;
 
-        currentCount = state.Count;
+            currentCount = state.Count;
+
+            StateHasChanged();
+        }
+
+
+        await base.OnAfterRenderAsync(firstRender);
     }
+
 
     int currentCount = 0;
 

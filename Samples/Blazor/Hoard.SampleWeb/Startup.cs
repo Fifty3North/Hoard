@@ -48,8 +48,19 @@ namespace Hoard.Sample
             });
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<ForecastStore>();
-            services.AddTransient<CounterStore>();
-            services.AddTransient<IStorage, BlazorStore>();
+            services.AddScoped<CounterStore>();
+
+            //(x) => {
+            //    CounterStore store;
+            //    using (var scope = x.CreateScope())
+            //    {
+            //        var storage = scope.ServiceProvider.GetService<IStorage>();
+            //        store = new CounterStore(storage);
+            //        store.Initialise().Wait();
+            //    }
+            //    return store;
+            //}
+            services.AddScoped<IStorage, BlazorStore>();
             //services.AddTransient<IStorage, BlobCacheStorage<IBlobCache>>();
             
             services.AddProtectedBrowserStorage();

@@ -22,12 +22,12 @@ namespace Hoard.SampleLogic.Counter
             return new[] { new Events.CounterDecremented() };
         }
 
-        public async void On(Events.CounterIncremented ev)
+        public void On(Events.CounterIncremented ev)
         {
             _state.Count++;
         }
 
-        public async void On(Events.CounterDecremented ev)
+        public void On(Events.CounterDecremented ev)
         {
             _state.Count--;
         }
