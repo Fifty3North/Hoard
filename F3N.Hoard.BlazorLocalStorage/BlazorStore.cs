@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 
 namespace F3N.Hoard.BlazorLocalStorage
 {
-    public class BlazorStore : ProtectedSessionStorage, IStorage
+    public class BlazorStore : ProtectedLocalStorage, IStorage
     {
         private Dictionary<string, Type> _keyTypes;
         
