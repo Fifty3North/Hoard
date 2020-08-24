@@ -6,21 +6,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akavache;
+using F3N.Hoard;
+using F3N.Hoard.BlazorLocalStorage;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
+using Xunit.DependencyInjection;
 
 namespace Hoard.Tests
 {
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IStorage>(new BlobCacheStorage<IBlobCache>(BlobCache.LocalMachine));
+        }
+    }
+
     public class StoreTests
     {
-        public StoreTests()
+        private WidgetStore widgetStore;
+        public StoreTests(IStorage storage)
         {
+            widgetStore = new WidgetStore(storage);
             LocalStorage.Initialise("StoreTests");
         }
-
+        
         [Fact]
         public async Task EventSubscriptionDeliversStateItem()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -44,7 +59,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemAndEvent()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -78,7 +93,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemUsingWhereClause()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             List<WidgetState> products = new List<WidgetState>();
@@ -112,7 +127,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemAndEventUsingWhereClause()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             List<WidgetState> products = new List<WidgetState>();
@@ -157,7 +172,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task NonRegisteredCommandThrows()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -178,7 +193,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task NonRegisteredEventThrows()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -200,7 +215,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureStateIsUpdated()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             await widgetStore.Reset();
@@ -234,7 +249,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureItemInCollectionCanBeUpdated()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             await widgetStore.Reset();
@@ -274,7 +289,7 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureItemCanBeDeleted()
         {
-            var widgetStore = new WidgetStore();
+            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             await widgetStore.Reset();

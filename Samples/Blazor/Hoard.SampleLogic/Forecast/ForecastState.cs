@@ -7,10 +7,12 @@ namespace Hoard.SampleLogic.Forecast
 {
     public class ForecastState : IStatefulCollectionItem
     {
-        public Guid Id { get; }
-        public DateTime DateRecorded { get; }
-        public int Temperature { get; }
+        public Guid Id { get; set; }
+        public DateTime DateRecorded { get; set; }
+        public int Temperature { get; set; }
 
+        public ForecastState() {}
+        
         public ForecastState(Guid id, DateTime dateRecorded, int temperature)
         {
             Id = id;

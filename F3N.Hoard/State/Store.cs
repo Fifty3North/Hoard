@@ -150,7 +150,12 @@ namespace F3N.Hoard.State
 
         private readonly object _lock = new object();
 
-        private IStorage Storage { get { return LocalStorage.LocalMachineStorage; } }
+        private IStorage Storage;// { get { return LocalStorage.LocalMachineStorage; } }
+
+        public StoreCollection(IStorage storage)
+        {
+            Storage = storage;
+        }
 
         public async Task Initialise()
         {

@@ -47,7 +47,7 @@ namespace Hoard.Sample
                 o.DetailedErrors = true;
             });
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<ForecastStore>();
+            services.AddScoped<ForecastStore>();
             services.AddScoped<CounterStore>();
             services.AddScoped<IStorage, BlazorStore>();
             //services.AddTransient<IStorage, BlobCacheStorage<IBlobCache>>();

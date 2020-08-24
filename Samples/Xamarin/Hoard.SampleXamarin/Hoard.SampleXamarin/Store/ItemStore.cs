@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using F3N.Hoard;
 
 namespace Hoard.SampleXamarin.Store
 {
@@ -77,5 +78,9 @@ namespace Hoard.SampleXamarin.Store
 
         public void On(Events.ItemAddFailed ev) { }
         public void On(Events.ItemNotFoundOccured ev) { }
+
+        public ItemStore(IStorage storage) : base(storage)
+        {
+        }
     }
 }

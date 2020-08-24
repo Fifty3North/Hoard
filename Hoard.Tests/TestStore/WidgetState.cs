@@ -7,9 +7,9 @@ namespace Hoard.Tests.TestStore
 {
     public class WidgetState : IStatefulCollectionItem
     {
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
-        public string Title { get; }
+        public string Title { get; set; }
 
         public int StockQuantity { get; set; }
 

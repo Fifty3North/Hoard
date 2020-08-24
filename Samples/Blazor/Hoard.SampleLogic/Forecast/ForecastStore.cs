@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using F3N.Hoard;
 
 namespace Hoard.SampleLogic.Forecast
 {
@@ -16,6 +17,10 @@ namespace Hoard.SampleLogic.Forecast
         public void On(Events.ObservedTemperatureRecorded ev)
         {
             AddOrReplaceItem(new ForecastState(ev.Id, ev.DateRecorded, ev.Temperature));
+        }
+
+        public ForecastStore(IStorage storage) : base(storage)
+        {
         }
     }
 }

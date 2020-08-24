@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using F3N.Hoard;
 
 namespace Hoard.Tests.TestStore
 {
@@ -75,6 +76,10 @@ namespace Hoard.Tests.TestStore
             {
                 RemoveItem(lookup);
             }
+        }
+
+        public WidgetStore(IStorage storage) : base(storage)
+        {
         }
     }
 }

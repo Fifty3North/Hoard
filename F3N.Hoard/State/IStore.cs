@@ -8,7 +8,7 @@ namespace F3N.Hoard.State
 
     public interface IStatefulCollectionItem
     {
-        Guid Id { get; }
+        Guid Id { get; set; }
     }
 
     public interface ICommand { }
