@@ -65,8 +65,14 @@ namespace F3N.Hoard.State
 
         private async Task LoadInitialState()
         {
-            // Load from Storage
-            TState resumedState = await Storage.GetByKey<TState>(_storeKeyName);
+            TState resumedState = null;
+            
+            try
+            {
+                // Load from Storage
+                resumedState = await Storage.GetByKey<TState>(_storeKeyName);
+            }
+            catch (Exception) { }
 
             // Default if not found
             _state = resumedState ?? InitialiseState();
