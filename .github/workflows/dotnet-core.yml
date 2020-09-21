@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
     - name: Install dependencies
       run: dotnet restore
+    - name: Install dependencies (shared)
+      run: dotnet restore F3N.Hoard.Shared
     - name: Build Hoard.Shared
       run: dotnet build F3N.Hoard.Shared --configuration Release --no-restore
     - name: Build Hoard
