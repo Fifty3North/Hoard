@@ -17,7 +17,11 @@ variables:
 
 steps:
 - script: dotnet restore
-  displayName: 'dotnet restore $(buildConfiguration)'
+  displayName: 'dotnet restore F3N.Hoard.Shared/F3N.Hoard.Shared.csproj $(buildConfiguration)'
+- script: dotnet restore
+  displayName: 'dotnet restore F3N.Hoard.BlazorLocalStorage/F3N.Hoard.BlazorLocalStorage.csproj $(buildConfiguration)'
+- script: dotnet restore
+  displayName: 'dotnet restore Hoard.Tests/Hoard.Tests.csproj $(buildConfiguration)'
 
 - script: dotnet build F3N.Hoard.Shared/F3N.Hoard.Shared.csproj --configuration $(buildConfiguration) --no-restore
   displayName: 'dotnet build $(buildConfiguration)'
