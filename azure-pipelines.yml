@@ -18,8 +18,14 @@ variables:
 steps:
 - script: dotnet restore
   displayName: 'dotnet restore $(buildConfiguration)'
-- script: dotnet build --configuration $(buildConfiguration) --no-restore
+
+- script: dotnet build F3N.Hoard.Shared\F3N.Hoard.Shared.csproj --configuration $(buildConfiguration) --no-restore
   displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet build F3N.Hoard.BlazorLocalStorage.csproj --configuration $(buildConfiguration) --no-restore
+  displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet build Hoard.Tests\Hoard.Tests.csproj --configuration $(buildConfiguration) --no-restore
+  displayName: 'dotnet build $(buildConfiguration)'
+
 - script: dotnet test --configuration $(buildConfiguration) --no-restore --verbosity normal --logger trx
   displayName: 'dotnet test'
 - task: PublishTestResults@2
