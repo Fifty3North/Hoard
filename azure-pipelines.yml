@@ -24,7 +24,7 @@ steps:
 - script: dotnet build Hoard.Tests/Hoard.Tests.csproj --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet test --configuration $(buildConfiguration) --no-restore --verbosity normal --logger trx
+- script: dotnet test Hoard.Tests/Hoard.Tests.csproj --configuration $(buildConfiguration) --no-restore --verbosity normal --logger trx
   displayName: 'dotnet test'
 - task: PublishTestResults@2
   inputs:
