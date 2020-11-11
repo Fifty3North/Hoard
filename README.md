@@ -229,6 +229,17 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
+Also, under:
+```
+<script src="_framework/blazor.server.js"></script>
+```
+
+Add this to your _Host.cshtml file:
+```
+<script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
+```
+
+
 ### SQLite
 
 You must initialise Akavache using the following on App start:
