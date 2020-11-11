@@ -22,6 +22,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleLogic", "Sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWeb", "Samples\Blazor\Hoard.SampleWeb\Hoard.SampleWeb.csproj", "{D2093CFD-38CB-4ED7-AB88-308E912E0480}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin", "Xamarin", "{66148996-022D-4DB1-93BE-78D3BD9A5FF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin.Android", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.Android\Hoard.SampleXamarin.Android.csproj", "{43D01D44-B77F-4146-B66A-52A5701CA820}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin.iOS", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.iOS\Hoard.SampleXamarin.iOS.csproj", "{E05B36F3-F29C-4AA9-9F51-D74905E8E999}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleXamarin", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.csproj", "{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorLocalStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.Sqlite", "F3N.Hoard.Sqlite\F3N.Hoard.Sqlite.csproj", "{8D7C2F47-DDAA-4308-9F53-74428CA71B91}"
