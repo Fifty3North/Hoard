@@ -38,4 +38,24 @@ jobs:
       run: dotnet pack F3N.Hoard.BlazorLocalStorage/F3N.Hoard.BlazorLocalStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Create NuGet Package F3N.Hoard.Sqlite
       run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
-
+    - name: Publish to NuGet
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: F3N.Hoard/F3N.Hoard.csproj
+        VERSION_REGEX: '^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+    - name: Publish to NuGet
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: F3N.Hoard.BlazorLocalStorage/F3N.Hoard.BlazorLocalStorage.csproj
+        VERSION_REGEX: '^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}      
+    - name: Publish to NuGet
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj
+        VERSION_REGEX: '^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}    
