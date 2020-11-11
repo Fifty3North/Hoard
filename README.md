@@ -6,11 +6,13 @@
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
 ![Azure DevOps tests](https://img.shields.io/azure-devops/tests/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
 
-True MVU pattern for UI frameworks including Blazor, Xamarin with cross-platform persistent storage.
+True MVU pattern for UI frameworks including Blazor, Xamarin (see Xamarin branch) with cross-platform persistent storage.
 
 Based loosely on Redux and generic dispatcher used in Orleankka, views can subscribe to the store and be notified when it updates.
 
-## For Xamarin, works well with:
+![Diagram](diagram.png)
+
+## For Xamarin (see Xamarin branch), works well with:
 [F3N.YaMVVM](https://github.com/Fifty3North/YaMVVM) 
 > Yet another Model, View, ViewModel framework for Xamarin Forms.
 
