@@ -14,7 +14,7 @@ Works anywhere but tested in Blazor and Xamarin.
 Uses SQLite and Akavache API to provide persistence</Description>
     <RepositoryUrl>https://github.com/Fifty3North/Hoard.git</RepositoryUrl>
     <LangVersion>default</LangVersion>
-	<Version>1.1.2</Version>
+	<Version>2.0.0</Version>
 	  <License>https://licenses.nuget.org/MIT</License>
   </PropertyGroup>
 
