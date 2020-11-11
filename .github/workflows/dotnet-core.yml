@@ -32,3 +32,10 @@ jobs:
       run: dotnet build Hoard.Tests --configuration Release --no-restore
     - name: Test
       run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
+    - name: Create NuGet Package F3N.Hoard
+      run: dotnet pack F3N.Hoard/F3N.Hoard.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+    - name: Create NuGet Package F3N.Hoard.BlazorLocalStorage
+      run: dotnet pack F3N.Hoard.BlazorLocalStorage/F3N.Hoard.BlazorLocalStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+    - name: Create NuGet Package F3N.Hoard.Sqlite
+      run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+
