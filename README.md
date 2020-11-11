@@ -1,5 +1,7 @@
 # F3N.Hoard
 
+[![Join the chat at https://gitter.im/Fifty3North/Hoard](https://badges.gitter.im/Fifty3North/Hoard.svg)](https://gitter.im/Fifty3North/Hoard?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.svg)
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
 ![Azure DevOps tests](https://img.shields.io/azure-devops/tests/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
