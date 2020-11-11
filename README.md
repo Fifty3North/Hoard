@@ -4,30 +4,17 @@
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
 ![Azure DevOps tests](https://img.shields.io/azure-devops/tests/andy0505/3270ed0d-e050-46bb-be0a-077a5b7e8f5a/1.svg)
 
-Cross platform storage for native apps used in-house at Fifty3North.
+True MVU pattern for UI frameworks including Blazor, Xamarin with cross-platform persistent storage.
 
 Based loosely on Redux and generic dispatcher used in Orleankka, views can subscribe to the store and be notified when it updates.
 
-Works anywhere but tested in Blazor and Xamarin.
-
-Uses SQLite and Akavache API to provide persistence
-
-## TODOs
-
-1. ~~Create tests~~
-2. Make storage module pluggable
-3. Create none Akavache storage example
-4. ~~Provide Xamarin example~~
-5. ~~Documentation~~
-6. ~~Publish NuGet package~~
-
-## Works well with:
+## For Xamarin, works well with:
 [F3N.YaMVVM](https://github.com/Fifty3North/YaMVVM) 
 > Yet another Model, View, ViewModel framework for Xamarin Forms.
 
 ## Pre-requisites
 
-Visual Studio 2019 and .Net Core Preview 6 (for Blazor samples)
+.Net 5.0
 
 ## How to use
 
@@ -48,19 +35,7 @@ Commands belong to a store and are typed as such using inheritance from base Com
 They should be immutable by design but this is not enforced by Hoard.
 
 ```csharp
-public class RegisterProduct : Command<WidgetStore>
-{
-    public readonly Guid Id;
-    public readonly string Title;
-    public readonly int IntialStockQuantity;
-
-    public RegisterProduct(Guid id, string title, int initialStockQuantity)
-    {
-        Id = id;
-        Title = title;
-        IntialStockQuantity = initialStockQuantity;
-    }
-}
+public record RegisterProduct(Guid Id, string Title, int InitialStockQuantity) : Command<WidgetStore>
 ```
 
 ### Event
@@ -70,14 +45,13 @@ An event is a fact that has happened within your system. It contains all the inf
 Events always have an Id of type Guid.
 
 ```csharp
-public class ProductRegistered : Event
+public record ProductRegistered : Event
 {
     public readonly string Title;
     public readonly int InitialQuantity;
 
-    public ProductRegistered(Guid id, string title, int initialQuantity)
+    public ProductRegistered(Guid id, string title, int initialQuantity) : base(id)
     {
-        Id = id;
         Title = title;
         InitialQuantity = initialQuantity;
     }
@@ -238,13 +212,27 @@ await forecastStore.Initialise();
 await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
 ```
 
+### BlazorStore
+
+Make sure to initialise blazor store
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddRazorPages();
+            
+    ...
+            
+    services.AddBlazorLocalStorage();
+}
+```
 
 ### SQLite
 
 You must initialise Akavache using the following on App start:
 
 ```csharp
-LocalStorage.Initialise("Your.App.Name");
+LocalStorage.Initialise("Your.App.Name", BlobCache.Secure);
 ```
 
 The data is stored in `%LocalAppData%\Hoard.SampleWeb\BlobCache` (`c:\users\<username>\Appdata\Local\Hoard.SampleWeb\BlobCache`)

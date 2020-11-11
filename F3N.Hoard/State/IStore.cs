@@ -19,14 +19,15 @@ namespace F3N.Hoard.State
 
     public interface IDeletedEvent { }
 
-    public abstract class Event
+    public abstract record Event
     {
-        public Guid Id { get; protected set; }
+        public Guid Id { get; }
+        public Event() { }
+        public Event(Guid id) => Id = id;
     }
     
     public interface IStore : IInternalStoreMethods
     {
-        //event Action StateChanged;
         event StageChangedEventHandler StateChangedEvent;
     }
 

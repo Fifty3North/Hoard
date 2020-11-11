@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Events
 {
-    public class DuplicateProductIdEncountered : Event
+    public record DuplicateProductIdEncountered : Event
     {
         public readonly string Title;
 
-        public DuplicateProductIdEncountered(Guid id, string title)
+        public DuplicateProductIdEncountered(Guid id, string title) : base(id)
         {
-            Id = id;
             Title = title;
         }
     }

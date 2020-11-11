@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Authors>Fifty3North</Authors>
     <Company>Fifty3North (F3N Limited)</Company>
     <Copyright>Copyright © F3N Limited 2020</Copyright>
@@ -19,8 +19,7 @@ Uses SQLite and Akavache API to provide persistence</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="akavache" Version="6.10.20" />
-    <PackageReference Include="System.Reactive.Linq" Version="4.4.1" />
+    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

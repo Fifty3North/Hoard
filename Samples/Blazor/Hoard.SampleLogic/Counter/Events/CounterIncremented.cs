@@ -5,7 +5,5 @@ using System.Text;
 
 namespace Hoard.SampleLogic.Counter.Events
 {
-    public class CounterIncremented : Event
-    {
-    }
+    public record CounterIncremented : Event;
 }

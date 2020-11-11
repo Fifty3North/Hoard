@@ -5,16 +5,15 @@ using System.Text;
 
 namespace Hoard.SampleLogic.Forecast.Events
 {
-    public class ObservedTemperatureRecorded : Event
+    public record ObservedTemperatureRecorded : Event
     {
-        public readonly DateTime DateRecorded;
-        public readonly int Temperature;
+        public DateTime DateRecorded { get; }
+        public int Temperature { get; }
 
-        public ObservedTemperatureRecorded(Guid id, DateTime dateRecorded, int tempInCelcius)
+        public ObservedTemperatureRecorded(Guid id, DateTime dateRecorded, int temperature) : base(id)
         {
-            Id = id;
             DateRecorded = dateRecorded;
-            Temperature = tempInCelcius;
+            Temperature = temperature;
         }
     }
 }

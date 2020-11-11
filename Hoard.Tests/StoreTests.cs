@@ -12,6 +12,7 @@ using F3N.Hoard.BlazorLocalStorage;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.DependencyInjection;
+using F3N.Hoard.Sqlite;
 
 namespace Hoard.Tests
 {
@@ -19,7 +20,20 @@ namespace Hoard.Tests
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IStorage>(new BlobCacheStorage<IBlobCache>(BlobCache.LocalMachine));
+            // Test store without any dependencies (in memory only)
+            //services.AddScoped<IStorage, TestStore.TestStore>();
+
+            /*
+            * BlobCache.LocalMachine - Cached data. This data may get deleted without notification.
+            * BlobCache.UserAccount - User settings. Some systems backup this data to the cloud.
+            * BlobCache.Secure - For saving sensitive data - like credentials.
+            * BlobCache.InMemory - A database, kept in memory. The data is stored for the lifetime of the app.
+            * https://github.com/reactiveui/Akavache
+            */
+
+            // Akavache Sqlite secure store
+            SqliteConfig.Initialise("HoardTest", BlobCache.Secure);
+            services.AddSingleton<IStorage, BlobCacheStorage>();
         }
     }
 
@@ -29,13 +43,11 @@ namespace Hoard.Tests
         public StoreTests(IStorage storage)
         {
             widgetStore = new WidgetStore(storage);
-            LocalStorage.Initialise("StoreTests");
         }
-        
+
         [Fact]
         public async Task EventSubscriptionDeliversStateItem()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -59,7 +71,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemAndEvent()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -93,7 +104,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemUsingWhereClause()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             List<WidgetState> products = new List<WidgetState>();
@@ -127,7 +137,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EventSubscriptionDeliversStateItemAndEventUsingWhereClause()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             List<WidgetState> products = new List<WidgetState>();
@@ -172,7 +181,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task NonRegisteredCommandThrows()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -193,7 +201,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task NonRegisteredEventThrows()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             WidgetState updatedItem = null;
@@ -215,7 +222,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureStateIsUpdated()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             await widgetStore.Reset();
@@ -249,7 +255,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureItemInCollectionCanBeUpdated()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             await widgetStore.Reset();
@@ -289,7 +294,6 @@ namespace Hoard.Tests
         [Fact]
         public async Task EnsureItemCanBeDeleted()
         {
-            //var widgetStore = new WidgetStore();
             await widgetStore.Initialise();
 
             await widgetStore.Reset();

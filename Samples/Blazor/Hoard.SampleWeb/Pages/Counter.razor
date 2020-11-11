@@ -1,10 +1,7 @@
 @using Hoard.SampleLogic.Counter
 @using F3N.Hoard.Extensions
-@using F3N.Hoard.State
-@using Microsoft.AspNetCore.ProtectedBrowserStorage
-
-@inject CounterStore counterStore;
-
+@using Hoard.SampleLogic.Counter.Commands
+ 
 @implements IDisposable
 
 @page "/counter"
@@ -18,43 +15,32 @@
 <button class="btn btn-primary" @onclick="@DecrementCount">Down</button>
 
 @code {
-
+    [CascadingParameter] private StateProvider StateProvider { get; set; }
 
     CounterState state;
     IDisposable subscription;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
+        subscription = StateProvider.CounterStore.Observe().Subscribe((s) =>
         {
-            await counterStore.Initialise();
-            subscription = counterStore.Observe().Subscribe(async (s) =>
-            {
-                currentCount = s.Count;
-            });
+            currentCount = s.Count;
+        });
 
-            state = counterStore.CurrentState;
+        currentCount = StateProvider.CounterStore.CurrentState.Count;
 
-            currentCount = state.Count;
-
-            StateHasChanged();
-        }
-
-
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnInitializedAsync();
     }
-
 
     int currentCount = 0;
 
     async Task IncrementCount()
     {
-        await counterStore.Dispatch<CounterStore>(new Hoard.SampleLogic.Counter.Commands.IncrementCounter());
+        await StateProvider.CounterStore.Dispatch(new IncrementCounter());
     }
 
     async Task DecrementCount()
     {
-        await counterStore.Dispatch(new Hoard.SampleLogic.Counter.Commands.DecrementCounter());
+        await StateProvider.CounterStore.Dispatch(new DecrementCounter());
     }
 
     public void Dispose()

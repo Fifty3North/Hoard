@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hoard.SampleLogic.Counter.Commands
 {
-    public class DecrementCounter : Command<CounterStore>
+    public record DecrementCounter : Command<CounterStore>
     {
     }
 }

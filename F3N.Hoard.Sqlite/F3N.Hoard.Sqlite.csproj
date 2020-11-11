@@ -4,23 +4,24 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<RepositoryUrl>https://github.com/Fifty3North/Hoard.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<AssemblyTitle>F3N.Hoard.BlazorLocalStorage</AssemblyTitle>
+		<AssemblyTitle>F3N.Hoard.Sqlite</AssemblyTitle>
 		<Company>Fifty3North (F3N Limited)</Company>
 		<Product>F3N.Hoard.BlazorLocalStorage</Product>
-		<Description>Blazor Local Storage for F3N.Hoard</Description>
+		<Description>Sqlite Storage for F3N.Hoard</Description>
 		<Copyright>F3N Limited 2020</Copyright>
 		<Version>1.1.2-prerelease</Version>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<Authors>Fifty3North (F3N Limited)</Authors>
-		<PackageId>F3N.Hoard.BlazorLocalStorage</PackageId>
+		<PackageId>F3N.Hoard.Sqlite</PackageId>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/Fifty3North/Hoard</PackageProjectUrl>
 		<License>https://licenses.nuget.org/MIT</License>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.ProtectedBrowserStorage" Version="0.1.0-alpha.19521.1" />
+      <PackageReference Include="akavache" Version="7.1.1" />
+      <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>

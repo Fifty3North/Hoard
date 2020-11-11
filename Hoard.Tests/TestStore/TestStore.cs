@@ -1,48 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using F3N.Hoard;
 using F3N.Hoard.Storage;
 using F3N.Hoard.Utils;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.ProtectedBrowserStorage;
-using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace F3N.Hoard.BlazorLocalStorage
+namespace Hoard.Tests.TestStore
 {
-    public class KeyVal
-    {
-        public string Key { get; set; }
-        public string ValType { get; set; }
-    }
-    
-    public class BlazorStore : ProtectedLocalStorage, IStorage
+    public class TestStore : IStorage
     {
         private Dictionary<string, string> _keyTypes;
-        
-        public BlazorStore(IJSRuntime jsRuntime, IDataProtectionProvider dataProtectionProvider) : base(jsRuntime, dataProtectionProvider)
+        private Dictionary<string, object> _store;
+
+        public TestStore()
         {
             _keyTypes = new Dictionary<string, string>();
+            _store = new Dictionary<string, object>();
         }
 
-        public async Task<T> Get<T>(string id)
+        public Task<T> Get<T>(string id)
         {
             var key = Utility.MakeKey<T>(id);
-            return await base.GetAsync<T>(key);
+            return Task.FromResult((T)_store[key]);
         }
 
-        public async Task<T> GetByKey<T>(string key)
+        public Task<T> GetByKey<T>(string key)
         {
-            return await base.GetAsync<T>(key);
+            return Task.FromResult((T)_store[key]);
         }
 
-        public async Task<List<T>> GetAll<T>()
+        public Task<List<T>> GetAll<T>()
         {
             if (_keyTypes.Count == 0)
             {
                 try
                 {
-                    var kt = await base.GetAsync<Dictionary<string, string>>("KeyTypes");
+                    var kt = (Dictionary<string, string>)_store["KeyTypes"];
                     if (kt != null) _keyTypes = kt;
                 }
                 catch (Exception e)
@@ -55,26 +50,27 @@ namespace F3N.Hoard.BlazorLocalStorage
                 .Select(x => x.Key);
 
             List<T> values = new List<T>();
-            await keys.ForEach(async x =>
+            keys.ForEach(x =>
             {
-                var val = await base.GetAsync<T>(x);
+                var val = (T)_store[x];
                 values.Add(val);
             });
-            return values;
+
+            return Task.FromResult(values);
         }
 
         public async Task Save<T>(string id, T data)
         {
             string key = Utility.MakeKey<T>(id);
             _keyTypes.TryAdd(key, typeof(T).ToString());
-            await base.SetAsync(key, data);
+            _store.Add(key,data);
             await SaveKeyTypes();
         }
 
         public async Task SaveByKey<T>(string key, T data)
         {
             _keyTypes.TryAdd(key, typeof(T).ToString());
-            await base.SetAsync(key, data);
+            _store.Add(key, data);
             await SaveKeyTypes();
         }
 
@@ -83,45 +79,47 @@ namespace F3N.Hoard.BlazorLocalStorage
             foreach (var keyValuePair in data)
             {
                 _keyTypes.TryAdd(keyValuePair.Key, typeof(T).ToString());
-                await base.SetAsync(keyValuePair.Key, keyValuePair.Value);
+                _store.Add(keyValuePair.Key, keyValuePair.Value);
             }
 
             await SaveKeyTypes();
         }
 
-        public async Task Delete<T>(string id)
+        public Task Delete<T>(string id)
         {
             var key = Utility.MakeKey<T>(id);
             _keyTypes.Remove(key);
-            await base.DeleteAsync(key);
+            _store.Remove(key);
+            return Task.CompletedTask;
         }
 
-        public async Task DeleteByKey<T>(string key)
+        public Task DeleteByKey<T>(string key)
         {
             _keyTypes.Remove(key);
-            await base.DeleteAsync(key);
+            _store.Remove(key);
+            return Task.CompletedTask;
         }
 
-        public async Task DeleteAll<T>()
+        public Task DeleteAll<T>()
         {
             var keys = _keyTypes
                 .Where(x => x.Value == typeof(T).ToString())
                 .Select(x => x.Key);
 
-            await keys.ForEach(async x =>
+            keys.ForEach(x =>
             {
                 _keyTypes.Remove(x);
-                await base.DeleteAsync(x);
+                _store.Remove(x);
             });
+
+            return Task.CompletedTask;
         }
 
-        public async Task Clear()
+        public Task Clear()
         {
-            await _keyTypes.Keys.ForEach(async x =>
-            {
-                await base.DeleteAsync(x);
-            });
+            _store.Clear();
             _keyTypes.Clear();
+            return Task.CompletedTask;
         }
 
         public Task Flush()
@@ -129,10 +127,10 @@ namespace F3N.Hoard.BlazorLocalStorage
             throw new NotImplementedException();
         }
 
-        private async Task SaveKeyTypes()
+        private Task SaveKeyTypes()
         {
-            await base.SetAsync("KeyTypes", _keyTypes);
+            _store.Add("KeyTypes", _keyTypes);
+            return Task.CompletedTask;
         }
     }
-
 }
