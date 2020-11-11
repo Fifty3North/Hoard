@@ -22,14 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleLogic", "Sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWeb", "Samples\Blazor\Hoard.SampleWeb\Hoard.SampleWeb.csproj", "{D2093CFD-38CB-4ED7-AB88-308E912E0480}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin", "Xamarin", "{66148996-022D-4DB1-93BE-78D3BD9A5FF7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin.Android", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.Android\Hoard.SampleXamarin.Android.csproj", "{43D01D44-B77F-4146-B66A-52A5701CA820}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleXamarin.iOS", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.iOS\Hoard.SampleXamarin.iOS.csproj", "{E05B36F3-F29C-4AA9-9F51-D74905E8E999}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleXamarin", "Samples\Xamarin\Hoard.SampleXamarin\Hoard.SampleXamarin\Hoard.SampleXamarin.csproj", "{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorLocalStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.Sqlite", "F3N.Hoard.Sqlite\F3N.Hoard.Sqlite.csproj", "{8D7C2F47-DDAA-4308-9F53-74428CA71B91}"
@@ -92,46 +84,6 @@ Global
 		{D2093CFD-38CB-4ED7-AB88-308E912E0480}.Release|iPhone.Build.0 = Release|Any CPU
 		{D2093CFD-38CB-4ED7-AB88-308E912E0480}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{D2093CFD-38CB-4ED7-AB88-308E912E0480}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|iPhone.Deploy.0 = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|iPhone.Build.0 = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|iPhone.Deploy.0 = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{43D01D44-B77F-4146-B66A-52A5701CA820}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Debug|Any CPU.ActiveCfg = Debug|iPhone
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Debug|iPhone.Build.0 = Debug|iPhone
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Release|Any CPU.ActiveCfg = Release|iPhone
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Release|iPhone.ActiveCfg = Release|iPhone
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Release|iPhone.Build.0 = Release|iPhone
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Release|iPhone.Build.0 = Release|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{70807138-42BB-45AB-8E47-BDC4300F5D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70807138-42BB-45AB-8E47-BDC4300F5D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70807138-42BB-45AB-8E47-BDC4300F5D54}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -164,10 +116,6 @@ Global
 		{EE1D6EFC-4E9E-4093-B5B5-49438864EC04} = {9D5E6CC0-198D-46C9-A546-310F38D1B825}
 		{A7DD2928-82B7-4411-8F38-63B63CBB6177} = {EE1D6EFC-4E9E-4093-B5B5-49438864EC04}
 		{D2093CFD-38CB-4ED7-AB88-308E912E0480} = {EE1D6EFC-4E9E-4093-B5B5-49438864EC04}
-		{66148996-022D-4DB1-93BE-78D3BD9A5FF7} = {9D5E6CC0-198D-46C9-A546-310F38D1B825}
-		{43D01D44-B77F-4146-B66A-52A5701CA820} = {66148996-022D-4DB1-93BE-78D3BD9A5FF7}
-		{E05B36F3-F29C-4AA9-9F51-D74905E8E999} = {66148996-022D-4DB1-93BE-78D3BD9A5FF7}
-		{899E3F83-9825-4BE1-A3CD-52A589A9DD1B} = {66148996-022D-4DB1-93BE-78D3BD9A5FF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {245F9654-FFC6-4BCA-A270-3A5E74BE8A34}
