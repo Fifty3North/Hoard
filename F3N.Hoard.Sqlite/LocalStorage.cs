@@ -17,7 +17,7 @@ namespace F3N.Hoard.Sqlite
         {
             BlobCache.ApplicationName = applicationName;
             BlobCache.EnsureInitialized();
-
+            Database = blobCache;
             Storage = new BlobCacheStorage(blobCache);
         }
 
