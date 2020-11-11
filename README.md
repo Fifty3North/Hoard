@@ -1,8 +1,16 @@
 # F3N.Hoard
 
 [![Join the chat at https://gitter.im/Fifty3North/Hoard](https://badges.gitter.im/Fifty3North/Hoard.svg)](https://gitter.im/Fifty3North/Hoard?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![.NET Core](https://github.com/Fifty3North/Hoard/workflows/.NET%20Core/badge.svg)
 
+## F3N.Hoard
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.svg)
+
+## F3N.Hoard.Sqlite
+![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.Sqlite.svg)
+
+## F3N.Hoard.BlazorLocalStorage
+![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.BlazorLocalStorage.svg)
 
 True MVU pattern for UI frameworks including Blazor, Xamarin (see Xamarin branch) with cross-platform persistent storage.
 
