@@ -5,10 +5,5 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Events
 {
-    public record ItemCheckedOut : Event
-    {
-        public readonly int QuantityCheckedOut;
-
-        public ItemCheckedOut(Guid id, int quantityCheckedOut) : base(id) => QuantityCheckedOut = quantityCheckedOut;
-    }
+    public record ItemCheckedOut(Guid Id, int QuantityCheckedOut) : Event(Id);
 }

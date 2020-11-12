@@ -16,7 +16,7 @@ namespace Hoard.Tests.TestStore
             }
             else
             {
-                return new[] { new Events.ProductRegistered(command.Id, command.Title, command.IntialStockQuantity) };
+                return new[] { new Events.ProductRegistered(command.Id, command.Title, command.InitialStockQuantity) };
             }
         }
 

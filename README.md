@@ -55,17 +55,7 @@ An event is a fact that has happened within your system. It contains all the inf
 Events always have an Id of type Guid.
 
 ```csharp
-public record ProductRegistered : Event
-{
-    public readonly string Title;
-    public readonly int InitialQuantity;
-
-    public ProductRegistered(Guid id, string title, int initialQuantity) : base(id)
-    {
-        Title = title;
-        InitialQuantity = initialQuantity;
-    }
-}
+public record ProductRegistered(Guid Id, string Title, int InitialQuantity) : Event(Id);
 ```
 
 ### Store
@@ -97,7 +87,7 @@ public IEnumerable<Event> Handle(Commands.RegisterProduct command)
 	}
 	else
 	{
-		return new[] { new Events.ProductRegistered(command.Id, command.Title, command.IntialStockQuantity) };
+		return new[] { new Events.ProductRegistered(command.Id, command.Title, command.InitialStockQuantity) };
 	}
 }
 ```

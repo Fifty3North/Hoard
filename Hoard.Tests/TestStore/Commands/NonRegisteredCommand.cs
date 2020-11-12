@@ -5,7 +5,5 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Commands
 {
-    public class NonRegisteredCommand : Command<WidgetStore>
-    {
-    }
+    public record NonRegisteredCommand : Command<WidgetStore>;
 }

@@ -63,7 +63,7 @@ namespace Hoard.Tests
             Assert.NotNull(updatedItem);
             Assert.Equal(command.Id, updatedItem.Id);
             Assert.Equal(command.Title, updatedItem.Title);
-            Assert.Equal(command.IntialStockQuantity, updatedItem.StockQuantity);
+            Assert.Equal(command.InitialStockQuantity, updatedItem.StockQuantity);
 
             subscription.Dispose();
         }
@@ -91,11 +91,11 @@ namespace Hoard.Tests
             Assert.NotNull(updatedItem);
             Assert.Equal(command.Id, updatedItem.Id);
             Assert.Equal(command.Title, updatedItem.Title);
-            Assert.Equal(command.IntialStockQuantity, updatedItem.StockQuantity);
+            Assert.Equal(command.InitialStockQuantity, updatedItem.StockQuantity);
 
             Assert.NotNull(ev);
             Assert.Equal(command.Id, ev.Id);
-            Assert.Equal(command.IntialStockQuantity, ev.InitialQuantity);
+            Assert.Equal(command.InitialStockQuantity, ev.InitialQuantity);
             Assert.Equal(command.Title, ev.Title);
 
             subscription.Dispose();
@@ -129,7 +129,7 @@ namespace Hoard.Tests
             var product = products.First();
             Assert.Equal(product1Command.Id, product.Id);
             Assert.Equal(product1Command.Title, product.Title);
-            Assert.Equal(product1Command.IntialStockQuantity, product.StockQuantity);
+            Assert.Equal(product1Command.InitialStockQuantity, product.StockQuantity);
 
             subscription.Dispose();
         }
@@ -164,13 +164,13 @@ namespace Hoard.Tests
             var product = products.First();
             Assert.Equal(product1Command.Id, product.Id);
             Assert.Equal(product1Command.Title, product.Title);
-            Assert.Equal(product1Command.IntialStockQuantity, product.StockQuantity);
+            Assert.Equal(product1Command.InitialStockQuantity, product.StockQuantity);
 
             Assert.Single(events);
             Assert.True(events.First() is TestStore.Events.ProductRegistered);
             TestStore.Events.ProductRegistered ev = events.First() as TestStore.Events.ProductRegistered;
             Assert.Equal(product1Command.Id, ev.Id);
-            Assert.Equal(product1Command.IntialStockQuantity, ev.InitialQuantity);
+            Assert.Equal(product1Command.InitialStockQuantity, ev.InitialQuantity);
             Assert.Equal(product1Command.Title, ev.Title);
 
             subscription.Dispose();

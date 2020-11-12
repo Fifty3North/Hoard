@@ -5,8 +5,5 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Events
 {
-    public record InvalidProductIdEncoutered : Event
-    {
-        public InvalidProductIdEncoutered(Guid id) : base(id) { }
-    }
+    public record InvalidProductIdEncoutered(Guid Id) : Event(Id);
 }

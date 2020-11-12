@@ -5,8 +5,5 @@ using System.Text;
 
 namespace Hoard.Tests.TestStore.Events
 {
-    public record InsufficientStockLevelEncountered : Event
-    {
-        public InsufficientStockLevelEncountered(Guid id) : base(id) { }
-    }
+    public record InsufficientStockLevelEncountered(Guid Id) : Event(Id);
 }
