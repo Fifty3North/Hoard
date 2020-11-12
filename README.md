@@ -212,7 +212,7 @@ await forecastStore.Initialise();
 await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
 ```
 
-### BlazorStore
+### BlazorStore (Server-side Blazor only)
 
 Make sure to initialise blazor store
 
@@ -226,17 +226,6 @@ public void ConfigureServices(IServiceCollection services)
     services.AddBlazorLocalStorage();
 }
 ```
-
-Also, under:
-```
-<script src="_framework/blazor.server.js"></script>
-```
-
-Add this to your _Host.cshtml file:
-```
-<script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
-```
-
 
 ### SQLite
 

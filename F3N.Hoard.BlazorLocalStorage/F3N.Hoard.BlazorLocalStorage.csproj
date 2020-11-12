@@ -9,7 +9,7 @@
 		<Product>F3N.Hoard.BlazorLocalStorage</Product>
 		<Description>Blazor Local Storage for F3N.Hoard</Description>
 		<Copyright>F3N Limited 2020</Copyright>
-		<Version>2.0.0-prerelease</Version>
+		<Version>2.0.1-prerelease</Version>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<Authors>Fifty3North (F3N Limited)</Authors>
