@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using F3N.Hoard.Storage;
 using F3N.Hoard.Utils;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components.ProtectedBrowserStorage;
 using Microsoft.JSInterop;
 
 namespace F3N.Hoard.BlazorLocalStorage
@@ -28,12 +28,14 @@ namespace F3N.Hoard.BlazorLocalStorage
         public async Task<T> Get<T>(string id)
         {
             var key = Utility.MakeKey<T>(id);
-            return await base.GetAsync<T>(key);
+            var result = await base.GetAsync<T>(key);
+            return result.Success ? result.Value : default(T);
         }
 
         public async Task<T> GetByKey<T>(string key)
         {
-            return await base.GetAsync<T>(key);
+            var result = await base.GetAsync<T>(key);
+            return result.Success ? result.Value : default(T);
         }
 
         public async Task<List<T>> GetAll<T>()
@@ -43,7 +45,7 @@ namespace F3N.Hoard.BlazorLocalStorage
                 try
                 {
                     var kt = await base.GetAsync<Dictionary<string, string>>("KeyTypes");
-                    if (kt != null) _keyTypes = kt;
+                    if (kt.Success) _keyTypes = kt.Value;
                 }
                 catch (Exception e)
                 {
@@ -58,7 +60,7 @@ namespace F3N.Hoard.BlazorLocalStorage
             await keys.ForEach(async x =>
             {
                 var val = await base.GetAsync<T>(x);
-                values.Add(val);
+                values.Add(val.Value);
             });
             return values;
         }
