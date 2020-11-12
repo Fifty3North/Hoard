@@ -4,8 +4,6 @@
 @using F3N.Hoard.Extensions
 @using F3N.Hoard.State
 
-@inject ForecastStore forecastStore;
-
 @implements IDisposable
 
 <h1>Weather forecast</h1>
@@ -50,6 +48,7 @@ else
 }
 
 @code {
+    [CascadingParameter] private StateProvider StateProvider { get; set; }
     List<WeatherForecast> forecasts;
     IReadOnlyCollection<ForecastState> state;
     IDisposable subscription;
@@ -80,7 +79,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await forecastStore.Initialise();
+        var forecastStore = StateProvider.ForecastStore;
 
         subscription = forecastStore.Observe().Subscribe(state =>
         {
@@ -100,11 +99,12 @@ else
 
         state = forecastStore.CurrentState;
         forecasts = state.OrderByDescending(d => d.DateRecorded).Select(f => ToViewModel(f)).ToList();
+        await base.OnInitializedAsync();
     }
 
     protected async Task SubmitNewReading()
     {
-        await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, tempuratureRecorded));
+        await StateProvider.ForecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, tempuratureRecorded));
     }
 
     public void Dispose()

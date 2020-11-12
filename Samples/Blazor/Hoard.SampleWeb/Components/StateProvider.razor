@@ -1,10 +1,10 @@
 ﻿@inject Hoard.SampleLogic.Counter.CounterStore counterStore
-
+@inject Hoard.SampleLogic.Forecast.ForecastStore forecastStore
 @if (isLoaded)
 {
     <CascadingValue Value="@this">
         @ChildContent
-    </CascadingValue> 
+    </CascadingValue>
 }
 else
 {
@@ -19,11 +19,17 @@ else
     public RenderFragment ChildContent { get; set; }
 
     public Hoard.SampleLogic.Counter.CounterStore CounterStore { get { return counterStore; } }
-    
-    protected override async Task OnInitializedAsync()
+    public Hoard.SampleLogic.Forecast.ForecastStore ForecastStore { get { return forecastStore; } }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await counterStore.Initialise();
-        
-        isLoaded = true;
-    } 
+        if (firstRender)
+        {
+            await counterStore.Initialise();
+            await forecastStore.Initialise();
+
+            isLoaded = true;
+            StateHasChanged();
+        }
+    }
 }
