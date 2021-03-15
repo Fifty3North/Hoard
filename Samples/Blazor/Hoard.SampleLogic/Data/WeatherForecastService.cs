@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hoard.SampleWeb.Data
+namespace Hoard.SampleLogic.Data
 {
     public class WeatherForecastService
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Hoard.SampleWeb.Data
+namespace Hoard.SampleLogic.Data
 {
     public class WeatherForecast
     {

@@ -30,9 +30,9 @@ namespace Hoard.Sample
             });
             services.AddScoped<ForecastStore>();
             services.AddScoped<CounterStore>();
-            services.AddScoped<IStorage, BlazorStore>();
-            //services.AddTransient<IStorage, BlobCacheStorage<IBlobCache>>();
-            
+
+            // Required for Blazor Server Protected Storage
+            services.AddScoped<IStorage, ProtectedBrowswerStorage>();
             services.AddBlazorLocalStorage();
         }
 
