@@ -212,7 +212,7 @@ namespace F3N.Hoard.State
             List<TState> resumedState = await Storage.GetAll<TState>();
 
             // Default if not found
-            _state = resumedState ?? new List<TState>();
+            _state = resumedState.Where(s => s != null).ToList() ?? new List<TState>();
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace F3N.Hoard.State
 
         public TState GetItem(Guid itemId)
         {
-            return CurrentState.FirstOrDefault(i => i.Id == itemId);
+            return CurrentState.FirstOrDefault(i => i != null && i.Id == itemId);
         }
 
         public event StageChangedEventHandler StateChangedEvent;
