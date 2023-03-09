@@ -1,5 +1,5 @@
 ﻿using F3N.Hoard.Storage;
-using F3N.Hoard.Extensions;
+using F3N.Hoard;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

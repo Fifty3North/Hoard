@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace F3N.Hoard.Extensions
+namespace F3N.Hoard
 {
     public static class CollectionExtensions
     {

@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace F3N.Hoard.Extensions
+namespace F3N.Hoard
 {
     public static class StoreExtensions
     {

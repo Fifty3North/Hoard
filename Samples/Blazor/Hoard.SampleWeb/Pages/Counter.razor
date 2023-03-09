@@ -1,5 +1,7 @@
+@inject Hoard.SampleLogic.Counter.CounterStore counterStore
+
 @using Hoard.SampleLogic.Counter
-@using F3N.Hoard.Extensions
+@using F3N.Hoard
 @using Hoard.SampleLogic.Counter.Commands
  
 @implements IDisposable
@@ -15,17 +17,15 @@
 <button class="btn btn-primary" @onclick="@DecrementCount">Down</button>
 
 @code {
-    [CascadingParameter] private StateProvider StateProvider { get; set; }
-
     IDisposable subscription;
     protected override async Task OnInitializedAsync()
     {
-        subscription = StateProvider.CounterStore.Observe().Subscribe((s) =>
+        subscription = counterStore.Observe().Subscribe((s) =>
         {
             currentCount = s.Count;
         });
 
-        currentCount = StateProvider.CounterStore.CurrentState.Count;
+        currentCount = counterStore.CurrentState.Count;
 
         await base.OnInitializedAsync();
     }
@@ -34,12 +34,12 @@
 
     async Task IncrementCount()
     {
-        await StateProvider.CounterStore.Dispatch(new IncrementCounter());
+        await counterStore.Dispatch(new IncrementCounter());
     }
 
     async Task DecrementCount()
     {
-        await StateProvider.CounterStore.Dispatch(new DecrementCounter());
+        await counterStore.Dispatch(new DecrementCounter());
     }
 
     public void Dispose()
