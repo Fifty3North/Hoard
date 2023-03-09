@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.Sqlite", "F3N.Hoa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWASM", "Samples\Blazor\Hoard.SampleWASM\Hoard.SampleWASM.csproj", "{AF051D26-4AEA-470A-B44F-82536A553D5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3N.Hoard.BlazorWasmStorage", "F3N.Hoard.BlazorWasmStorage\F3N.Hoard.BlazorWasmStorage.csproj", "{04579D9F-10E9-4A0F-9DD9-76484D000554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorWasmStorage", "F3N.Hoard.BlazorWasmStorage\F3N.Hoard.BlazorWasmStorage.csproj", "{04579D9F-10E9-4A0F-9DD9-76484D000554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

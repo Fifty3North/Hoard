@@ -15,7 +15,6 @@
 	  <OutputPath>bin\$(Configuration)\</OutputPath>
 	  <Authors>Fifty3North (F3N Limited)</Authors>
 	  <PackageId>F3N.Hoard.BlazorWasmStorage</PackageId>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <PackageProjectUrl>https://github.com/Fifty3North/Hoard</PackageProjectUrl>
 	  <License>https://licenses.nuget.org/MIT</License>
   </PropertyGroup>

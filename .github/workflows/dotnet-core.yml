@@ -20,18 +20,8 @@ jobs:
         dotnet-version: 7.0.201
     - name: Install dependencies
       run: dotnet restore
-    - name: Install dependencies (shared)
-      run: dotnet restore F3N.Hoard.Shared
-    - name: Build Hoard.Shared
-      run: dotnet build F3N.Hoard.Shared --configuration Release --no-restore
     - name: Build Hoard
       run: dotnet build F3N.Hoard --configuration Release --no-restore
-    - name: Build F3N.Hoard.BlazorServerStorage
-      run: dotnet build F3N.Hoard.BlazorServerStorage --configuration Release --no-restore
-    - name: Build F3N.Hoard.BlazorWasmStorage
-      run: dotnet build F3N.Hoard.BlazorWasmStorage --configuration Release --no-restore
-    - name: Build Hoard.Tests
-      run: dotnet build Hoard.Tests --configuration Release --no-restore
     - name: Test
       run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
     - name: Create NuGet Package F3N.Hoard
@@ -39,7 +29,7 @@ jobs:
     - name: Create NuGet Package F3N.Hoard.BlazorServerStorage
       run: dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Create NuGet Package F3N.Hoard.BlazorWasmStorage
-      run: dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+      run: dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj  --configuration Release --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Create NuGet Package F3N.Hoard.Sqlite
       run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Publish to NuGet
