@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build Hoard
-      run: dotnet build F3N.Hoard --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
     - name: Create NuGet Package F3N.Hoard
