@@ -1,4 +1,3 @@
-using F3N.Hoard.BlazorLocalStorage;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +6,8 @@ using Hoard.SampleLogic.Forecast;
 using Hoard.SampleLogic.Counter;
 using F3N.Hoard;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using F3N.Hoard.BlazorServerStorage;
 
 namespace Hoard.Sample
 {
@@ -32,8 +33,11 @@ namespace Hoard.Sample
             services.AddScoped<CounterStore>();
 
             // Required for Blazor Server Protected Storage
-            services.AddScoped<IStorage, ProtectedBrowswerStorage>();
-            services.AddBlazorLocalStorage();
+            services.AddScoped<IStorage, ProtectedStorage>();
+            
+            // Add protected browser storage (ProtectedLocalStorage / ProtectedSessionStorage)
+            services.AddScoped<ProtectedBrowserStorage, ProtectedLocalStorage>();
+            //services.AddScoped<ProtectedBrowserStorage, ProtectedSessionStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

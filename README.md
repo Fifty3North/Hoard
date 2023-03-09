@@ -10,7 +10,11 @@
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.Sqlite.svg)
 
 ## F3N.Hoard.BlazorLocalStorage
-![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.BlazorLocalStorage.svg)
+![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.BlazorServerStorage.svg)
+
+## F3N.Hoard.BlazorWasmStorage
+![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.BlazorWasmStorage.svg)
+
 
 True MVU pattern for UI frameworks including Blazor, Xamarin (see Xamarin branch) with cross-platform persistent storage.
 
@@ -18,13 +22,9 @@ Based loosely on Redux and generic dispatcher used in Orleankka, views can subsc
 
 ![Diagram](diagram.png)
 
-## For Xamarin (see Xamarin branch), works well with:
-[F3N.YaMVVM](https://github.com/Fifty3North/YaMVVM) 
-> Yet another Model, View, ViewModel framework for Xamarin Forms.
-
 ## Pre-requisites
 
-.Net 5.0
+.Net 7.0
 
 ## How to use
 

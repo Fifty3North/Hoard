@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Akavache;
 using F3N.Hoard;
-using F3N.Hoard.BlazorLocalStorage;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.DependencyInjection;

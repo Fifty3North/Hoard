@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj" />
     <ProjectReference Include="..\..\..\F3N.Hoard\F3N.Hoard.csproj" />
   </ItemGroup>
 

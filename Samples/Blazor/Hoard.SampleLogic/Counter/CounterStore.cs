@@ -1,11 +1,5 @@
 ﻿using F3N.Hoard.State;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using F3N.Hoard.BlazorLocalStorage;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.JSInterop;
 using F3N.Hoard;
 
 namespace Hoard.SampleLogic.Counter

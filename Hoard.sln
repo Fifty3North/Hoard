@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29020.237
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard", "F3N.Hoard\F3N.Hoard.csproj", "{5937D967-7706-4E26-8673-83DB9B99D41A}"
 EndProject
@@ -22,11 +22,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleLogic", "Sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWeb", "Samples\Blazor\Hoard.SampleWeb\Hoard.SampleWeb.csproj", "{D2093CFD-38CB-4ED7-AB88-308E912E0480}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorLocalStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorLocalStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorServerStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorServerStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.Sqlite", "F3N.Hoard.Sqlite\F3N.Hoard.Sqlite.csproj", "{8D7C2F47-DDAA-4308-9F53-74428CA71B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hoard.SampleWASM", "Samples\Blazor\Hoard.SampleWASM\Hoard.SampleWASM.csproj", "{AF051D26-4AEA-470A-B44F-82536A553D5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWASM", "Samples\Blazor\Hoard.SampleWASM\Hoard.SampleWASM.csproj", "{AF051D26-4AEA-470A-B44F-82536A553D5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F3N.Hoard.BlazorWasmStorage", "F3N.Hoard.BlazorWasmStorage\F3N.Hoard.BlazorWasmStorage.csproj", "{04579D9F-10E9-4A0F-9DD9-76484D000554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +124,18 @@ Global
 		{AF051D26-4AEA-470A-B44F-82536A553D5F}.Release|iPhone.Build.0 = Release|Any CPU
 		{AF051D26-4AEA-470A-B44F-82536A553D5F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{AF051D26-4AEA-470A-B44F-82536A553D5F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Release|iPhone.Build.0 = Release|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{04579D9F-10E9-4A0F-9DD9-76484D000554}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

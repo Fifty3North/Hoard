@@ -26,16 +26,20 @@ jobs:
       run: dotnet build F3N.Hoard.Shared --configuration Release --no-restore
     - name: Build Hoard
       run: dotnet build F3N.Hoard --configuration Release --no-restore
-    - name: Build F3N.Hoard.BlazorLocalStorage
-      run: dotnet build F3N.Hoard.BlazorLocalStorage --configuration Release --no-restore
+    - name: Build F3N.Hoard.BlazorServerStorage
+      run: dotnet build F3N.Hoard.BlazorServerStorage --configuration Release --no-restore
+    - name: Build F3N.Hoard.BlazorWasmStorage
+      run: dotnet build F3N.Hoard.BlazorWasmStorage --configuration Release --no-restore
     - name: Build Hoard.Tests
       run: dotnet build Hoard.Tests --configuration Release --no-restore
     - name: Test
       run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
     - name: Create NuGet Package F3N.Hoard
       run: dotnet pack F3N.Hoard/F3N.Hoard.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
-    - name: Create NuGet Package F3N.Hoard.BlazorLocalStorage
-      run: dotnet pack F3N.Hoard.BlazorLocalStorage/F3N.Hoard.BlazorLocalStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+    - name: Create NuGet Package F3N.Hoard.BlazorServerStorage
+      run: dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+    - name: Create NuGet Package F3N.Hoard.BlazorWasmStorage
+      run: dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Create NuGet Package F3N.Hoard.Sqlite
       run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Publish to NuGet
@@ -48,7 +52,14 @@ jobs:
     - name: Publish to NuGet
       uses: brandedoutcast/publish-nuget@v2
       with:
-        PROJECT_FILE_PATH: F3N.Hoard.BlazorLocalStorage/F3N.Hoard.BlazorLocalStorage.csproj
+        PROJECT_FILE_PATH: F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj
+        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}      
+    - name: Publish to NuGet
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}      

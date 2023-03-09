@@ -1,5 +1,5 @@
 using F3N.Hoard;
-using F3N.Hoard.BlazorLocalStorage;
+using F3N.Hoard.BlazorWasmStorage;
 using Hoard.SampleLogic.Counter;
 using Hoard.SampleLogic.Forecast;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
