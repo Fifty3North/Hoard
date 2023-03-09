@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorServerStorage.csproj" />
+    <ProjectReference Include="..\F3N.Hoard.BlazorServerStorage\F3N.Hoard.BlazorServerStorage.csproj" />
     <ProjectReference Include="..\F3N.Hoard.Sqlite\F3N.Hoard.Sqlite.csproj" />
     <ProjectReference Include="..\F3N.Hoard\F3N.Hoard.csproj" />
   </ItemGroup>

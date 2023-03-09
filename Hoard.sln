@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleLogic", "Sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hoard.SampleWeb", "Samples\Blazor\Hoard.SampleWeb\Hoard.SampleWeb.csproj", "{D2093CFD-38CB-4ED7-AB88-308E912E0480}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorServerStorage", "F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorServerStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.BlazorServerStorage", "F3N.Hoard.BlazorServerStorage\F3N.Hoard.BlazorServerStorage.csproj", "{70807138-42BB-45AB-8E47-BDC4300F5D54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F3N.Hoard.Sqlite", "F3N.Hoard.Sqlite\F3N.Hoard.Sqlite.csproj", "{8D7C2F47-DDAA-4308-9F53-74428CA71B91}"
 EndProject

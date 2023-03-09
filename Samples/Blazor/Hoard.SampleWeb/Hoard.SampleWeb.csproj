@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\F3N.Hoard.BlazorLocalStorage\F3N.Hoard.BlazorServerStorage.csproj" />
+    <ProjectReference Include="..\..\..\F3N.Hoard.BlazorServerStorage\F3N.Hoard.BlazorServerStorage.csproj" />
     <ProjectReference Include="..\Hoard.SampleLogic\Hoard.SampleLogic.csproj" />
   </ItemGroup>
 
