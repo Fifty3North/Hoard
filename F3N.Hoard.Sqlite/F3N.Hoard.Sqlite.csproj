@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<RepositoryUrl>https://github.com/Fifty3North/Hoard.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<AssemblyTitle>F3N.Hoard.Sqlite</AssemblyTitle>
@@ -20,7 +20,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="akavache" Version="7.2.1" />
+      <PackageReference Include="akavache" Version="9.1.7" />
       <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
     </ItemGroup>
 
