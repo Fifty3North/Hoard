@@ -30,7 +30,7 @@ namespace Hoard.Tests
             */
 
             // Akavache Sqlite secure store
-            SqliteConfig.Initialise("HoardTest", BlobCache.Secure);
+            SqliteConfig.Initialise("HoardTest", () => BlobCache.Secure);
             services.AddSingleton<IStorage, BlobCacheStorage>();
         }
     }
