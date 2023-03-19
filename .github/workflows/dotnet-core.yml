@@ -22,20 +22,33 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 7.0.201
+        
+    - name: Install dotnet tool
+      if: startsWith(github.ref, 'refs/tags/')
+      run: dotnet tool install -g dotnetCampus.TagToVersion
+    - name: Set tag to version
+      if: startsWith(github.ref, 'refs/tags/')
+      run: dotnet TagToVersion -t ${{ github.ref }}
+
     - name: Install dependencies
       run: dotnet restore
     - name: Build Hoard
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
+      
     - name: Create NuGet Package F3N.Hoard
-      run: dotnet pack F3N.Hoard/F3N.Hoard.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: dotnet pack F3N.Hoard/F3N.Hoard.csproj --no-build --output .\ 
     - name: Create NuGet Package F3N.Hoard.BlazorServerStorage
-      run: dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build --output .\ 
     - name: Create NuGet Package F3N.Hoard.BlazorWasmStorage
-      run: dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj  --configuration Release --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj  --configuration Release --no-build --output .\ 
     - name: Create NuGet Package F3N.Hoard.Sqlite
-      run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
+      if: startsWith(github.ref, 'refs/tags/')
+      run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ 
     - name: Publish
       if: startsWith(github.ref, 'refs/tags/')
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
