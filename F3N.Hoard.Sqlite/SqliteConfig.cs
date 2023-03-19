@@ -13,12 +13,12 @@ namespace F3N.Hoard.Sqlite
     {
         public static IStorage Storage { get; private set; }
         public static IBlobCache Database { get; private set; }
-        public static void Initialise(string applicationName, IBlobCache blobCache)
+        public static void Initialise(string applicationName, Func<IBlobCache> blobCacheResolver)
         {
             BlobCache.ApplicationName = applicationName;
             BlobCache.EnsureInitialized();
-            Database = blobCache;
-            Storage = new BlobCacheStorage(blobCache);
+            Database = blobCacheResolver.Invoke();
+            Storage = new BlobCacheStorage(Database);
         }
 
         public static async Task FlushAll()
