@@ -33,5 +33,5 @@ jobs:
     - name: Create NuGet Package F3N.Hoard.Sqlite
       run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ /p:PackageVersion=${{ env.PACKAGE_VERSION }}
     - name: Publish
-      if: startsWith(github.ref, 'refs/heads/release')
+      if: startsWith(github.ref, 'refs/tags/')
       run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
