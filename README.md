@@ -3,6 +3,8 @@
 [![Join the chat at https://gitter.im/Fifty3North/Hoard](https://badges.gitter.im/Fifty3North/Hoard.svg)](https://gitter.im/Fifty3North/Hoard?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![.NET Core](https://github.com/Fifty3North/Hoard/workflows/.NET%20Core/badge.svg)
 
+[Live Demo](https://dotnetfiddle.net/lfCW1t)
+
 ## F3N.Hoard
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.svg)
 
