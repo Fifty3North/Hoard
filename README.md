@@ -16,15 +16,9 @@
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.BlazorWasmStorage.svg)
 
 
-True MVU pattern for UI frameworks including Blazor, Xamarin (see Xamarin branch) with cross-platform persistent storage.
+True MVU pattern for UI frameworks including Blazor and Maui with cross-platform persistent storage.
 
 Based loosely on Redux and generic dispatcher used in Orleankka, views can subscribe to the store and be notified when it updates.
-
-![Diagram](diagram.png)
-
-## Pre-requisites
-
-.Net 7.0
 
 ## How to use
 
@@ -45,7 +39,7 @@ Commands belong to a store and are typed as such using inheritance from base Com
 They should be immutable by design but this is not enforced by Hoard.
 
 ```csharp
-public record RegisterProduct(Guid Id, string Title, int InitialStockQuantity) : Command<WidgetStore>
+public record IncrementCounter : F3N.Hoard.State.Command<CounterStore>;
 ```
 
 ### Event
@@ -55,25 +49,21 @@ An event is a fact that has happened within your system. It contains all the inf
 Events always have an Id of type Guid.
 
 ```csharp
-public record ProductRegistered(Guid Id, string Title, int InitialQuantity) : Event(Id);
+public record CounterIncremented : Event;
 ```
 
 ### Store
 
-There are two types of **store**: one for storing a single object, and one for storing a collection of objects.
-
-**Single object**
-
 ```csharp
-public class CounterStore : Store<CounterStore, CounterState> { ... }
+public class CounterStore : Store<CounterState>
+{
+    public CounterStore(IStorage _storage) : base(_storage) { }
+    public IEnumerable<Event> Handle(IncrementCounter command) => new[] { new CounterIncremented() };
+    public IEnumerable<Event> Handle(DecrementCounter command) => new[] { new CounterDecremented() };
+    public void On(CounterIncremented ev) => _state.Count++;
+    public void On(CounterDecremented ev) => _state.Count--;
+}
 ```
-
-**Collection**
-
-```csharp
-public class WidgetStore : StoreCollection<WidgetStore,WidgetState> { ... }
-```
-
 #### Command Hanlders
 
 Command handlers examine command and determine which events to raise. This is also where any communication with any external APIs occurs. Based on the result from the API different events can be raised.
@@ -81,14 +71,17 @@ Command handlers examine command and determine which events to raise. This is al
 ```csharp
 public IEnumerable<Event> Handle(Commands.RegisterProduct command)
 {
-	if (CurrentState.Any(widget => widget.Id == command.Id))
-	{
-		return new[] { new Events.DuplicateProductIdEncountered(command.Id, command.Title) };
-	}
-	else
-	{
-		return new[] { new Events.ProductRegistered(command.Id, command.Title, command.InitialStockQuantity) };
-	}
+
+    // Do any API communication here
+
+    if (CurrentState.Any(widget => widget.Id == command.Id))
+    {
+        return new[] { new Events.DuplicateProductIdEncountered(command.Id, command.Title) };
+    }
+    else
+    {
+        return new[] { new Events.ProductRegistered(command.Id, command.Title, command.InitialStockQuantity) };
+    }
 }
 ```
 
@@ -209,22 +202,7 @@ Take user input and dispatch to the store
 ForecastStore forecastStore = new ForecastStore();
 await forecastStore.Initialise();
 
-await forecastStore.Dispatch(new Hoard.SampleLogic.Forecast.Commands.RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
-```
-
-### BlazorStore (Server-side Blazor only)
-
-Make sure to initialise blazor store
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddRazorPages();
-            
-    ...
-            
-    services.AddBlazorLocalStorage();
-}
+await forecastStore.Dispatch(new RecordObservedTemperature(Guid.NewGuid(), recordedDate, temperatureRecorded));
 ```
 
 ### SQLite
@@ -232,7 +210,8 @@ public void ConfigureServices(IServiceCollection services)
 You must initialise Akavache using the following on App start:
 
 ```csharp
-LocalStorage.Initialise("Your.App.Name", BlobCache.Secure);
+SqliteConfig.Initialise("Your.App.Name", () => BlobCache.Secure);
 ```
 
 The data is stored in `%LocalAppData%\Hoard.SampleWeb\BlobCache` (`c:\users\<username>\Appdata\Local\Hoard.SampleWeb\BlobCache`)
+
