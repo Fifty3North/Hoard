@@ -30,20 +30,12 @@ jobs:
     - name: Test
       run: dotnet test Hoard.Tests/Hoard.Tests.csproj --verbosity normal
       
-    - name: Create NuGet Package F3N.Hoard
+    - name: Creating and publishing NuGet Packages
       if: startsWith(github.ref, 'refs/tags/')
       run: |
-        echo "Building version: [ $GITHUB_REF_NAME , ${{  github.ref_name }} , ${{env.GITHUB_REF_NAME}} ]"
-        dotnet pack F3N.Hoard/F3N.Hoard.csproj --no-build --output .\ -p:PackageVersion=${{ env.GITHUB_REF_NAME }}
-    - name: Create NuGet Package F3N.Hoard.BlazorServerStorage
-      if: startsWith(github.ref, 'refs/tags/')
-      run: dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build --output .\ -p:PackageVersion=${{ env.GITHUB_REF_NAME }}
-    - name: Create NuGet Package F3N.Hoard.BlazorWasmStorage
-      if: startsWith(github.ref, 'refs/tags/')
-      run: dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj  --configuration Release --no-build --output .\ -p:PackageVersion=${{ env.GITHUB_REF_NAME }}
-    - name: Create NuGet Package F3N.Hoard.Sqlite
-      if: startsWith(github.ref, 'refs/tags/')
-      run: dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ -p:PackageVersion=${{ env.GITHUB_REF_NAME }}
-    - name: Publish
-      if: startsWith(github.ref, 'refs/tags/')
-      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        echo "Packing version: ${{  github.ref_name }}"
+        dotnet pack F3N.Hoard/F3N.Hoard.csproj --no-build --output .\ -p:PackageVersion=${{  github.ref_name }}
+        dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build --output .\ -p:PackageVersion=${{  github.ref_name }}
+        dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj  --configuration Release --no-build --output .\ -p:PackageVersion=${{  github.ref_name }}
+        dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build --output .\ -p:PackageVersion=${{  github.ref_name }}
+        # nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
