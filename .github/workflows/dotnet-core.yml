@@ -38,4 +38,4 @@ jobs:
         dotnet pack F3N.Hoard.BlazorServerStorage/F3N.Hoard.BlazorServerStorage.csproj --no-build -p:PackageVersion=${{  github.ref_name }} --output .
         dotnet pack F3N.Hoard.BlazorWasmStorage/F3N.Hoard.BlazorWasmStorage.csproj  --configuration Release --no-build -p:PackageVersion=${{  github.ref_name }} --output .
         dotnet pack F3N.Hoard.Sqlite/F3N.Hoard.Sqlite.csproj --no-build -p:PackageVersion=${{  github.ref_name }} --output .
-        # nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
