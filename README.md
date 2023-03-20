@@ -9,7 +9,7 @@
 ## F3N.Hoard.Sqlite
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.Sqlite.svg)
 
-## F3N.Hoard.BlazorLocalStorage
+## F3N.Hoard.BlazorServerStorage
 ![Nuget](https://img.shields.io/nuget/v/F3N.Hoard.BlazorServerStorage.svg)
 
 ## F3N.Hoard.BlazorWasmStorage
